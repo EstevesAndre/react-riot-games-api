@@ -1,22 +1,24 @@
-import React from "react";
-import logo from './logo.svg';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+
+import BaseNavbar from "../../components/navbar";
 
 const Home = () => {
+  const [name, setName] = useState("");
+  const [greeting, setGreeting] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    fetch(`/api/greeting?name=${encodeURIComponent(name)}`)
+      .then((response) => response.json())
+      .then((state) => setGreeting(state.greeting));
+  };
+
   return (
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
+    <div>
+      <BaseNavbar />
+      <h1>OLA</h1>
+    </div>
   );
 };
 
