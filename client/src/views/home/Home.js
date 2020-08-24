@@ -29,7 +29,9 @@ const Home = () => {
   return (
     <div>
       <BaseNavbar />
-      <h1>OLA</h1>
+      <div className="one-page">
+        <h1 className="mt-5 pt-5">OLA</h1>
+      </div>
     </div>
   );
 };
