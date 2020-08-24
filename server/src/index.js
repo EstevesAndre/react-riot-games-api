@@ -3,10 +3,20 @@ const bodyParser = require("body-parser");
 const pino = require("express-pino-logger")();
 const dotenv = require("dotenv");
 
+const db = require('./db');
+const userRouter = require('./routes/user');
+
 const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
+
+const port = process.env.PORT || 5001;
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(pino);
+
 dotenv.config();
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 app.get("/api/greeting", (req, res) => {
   const name = req.query.name || "World";
@@ -14,8 +24,13 @@ app.get("/api/greeting", (req, res) => {
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 });
 
-const port = process.env.PORT || 5000;
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.use('/api', userRouter);
+
 
 app.listen(port, () =>
-  console.log("Express server is running on localhost:5000")
+  console.log(`Express server is running on localhost:${port}`)
 );
