@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
+
+import api from "../../api";
 
 import BaseNavbar from "../../components/navbar";
 
@@ -13,6 +15,16 @@ const Home = () => {
       .then((response) => response.json())
       .then((state) => setGreeting(state.greeting));
   };
+
+  useEffect(() => {
+    console.log("HERE");
+    async function fetchData() {
+      const response = await api.getAllUsers();
+      console.log(response);
+    }
+    fetchData();
+
+  }, []);
 
   return (
     <div>

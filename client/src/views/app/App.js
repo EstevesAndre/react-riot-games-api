@@ -11,6 +11,9 @@ function App() {
         <Switch>
           <Route path="/summoner/:username?" component={Home} />
           <Route exact path="/" component={Home} />
+          <Route path="/statistics" component={Home} />
+          <Route path="/leaderboard" component={Home} />
+          <Route path="/champions" component={Home} />
           <Redirect to="/" />
         </Switch>
       </div>
