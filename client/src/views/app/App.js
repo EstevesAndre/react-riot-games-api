@@ -14,6 +14,7 @@ function App() {
           <Route path="/statistics" component={Home} />
           <Route path="/leaderboard" component={Home} />
           <Route path="/champions" component={Home} />
+          <Route path="/items" component={Home} />
           <Redirect to="/" />
         </Switch>
       </div>

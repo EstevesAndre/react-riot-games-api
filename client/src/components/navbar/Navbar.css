@@ -1,0 +1,33 @@
+.menu-dropdown img {
+  height: 25px;
+  margin-right: 6px;
+}
+
+.menu-dropdown button {
+  padding: 0.25rem 0.75rem 0.25rem 0.5rem;
+}
+
+.search-container {
+  display: flex;
+  vertical-align: middle;
+  /* padding-top: 0.5rem; */
+}
+
+.search-container .dropdown button {
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+  min-width: 82px;
+}
+
+.search-container form input {
+  border-radius: 0px;
+  display: inline-block;
+  width: 250px;
+}
+
+.search-container form button {
+  vertical-align: top;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+  background-clip: unset;
+}
