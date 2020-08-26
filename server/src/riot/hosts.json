@@ -1,0 +1,45 @@
+[{
+        "id": "BR1",
+        "code": "br1"
+    },
+    {
+        "id": "EUN1",
+        "code": "eun1"
+    },
+    {
+        "id": "EUW1",
+        "code": "euw1"
+    },
+    {
+        "id": "JP1",
+        "code": "jp1"
+    },
+    {
+        "id": "KR",
+        "code": "kr"
+    },
+    {
+        "id": "LA1",
+        "code": "la1"
+    },
+    {
+        "id": "LA2",
+        "code": "la2"
+    },
+    {
+        "id": "NA1",
+        "code": "na1"
+    },
+    {
+        "id": "OC1",
+        "code": "oc1"
+    },
+    {
+        "id": "TR1",
+        "code": "tr1"
+    },
+    {
+        "id": "RU",
+        "code": "ru"
+    }
+]

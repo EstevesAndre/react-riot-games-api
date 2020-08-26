@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 
 const db = require('./db');
 const userRouter = require('./routes/user');
+const riotRouter = require('./routes/riot');
 
 const app = express();
 
@@ -19,18 +20,18 @@ dotenv.config();
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 app.get("/api/greeting", (req, res) => {
-  const name = req.query.name || "World";
-  res.setHeader("Content-Type", "application/json");
-  res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
+    const name = req.query.name || "World";
+    res.setHeader("Content-Type", "application/json");
+    res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 });
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+    res.send('Hello World!')
 })
 
+app.use('/api/riot', riotRouter);
 app.use('/api', userRouter);
 
-
 app.listen(port, () =>
-  console.log(`Express server is running on localhost:${port}`)
+    console.log(`Express server is running on localhost:${port}`)
 );
