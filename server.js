@@ -14,7 +14,6 @@ app.use(bodyParser.json());
 app.use(pino);
 
 dotenv.config();
-
 const port = process.env.PORT || 5001;
 
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
