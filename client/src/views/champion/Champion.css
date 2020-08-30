@@ -1,0 +1,152 @@
+.champion-page .header {
+  /* background-color: #100d13; */
+  /* color: white; */
+  padding: 15% 0px !important;
+}
+
+.champion-page .header .img-container img {
+  width: 100%;
+  max-width: 200px;
+  border-radius: 10px;
+}
+
+.champion-page .main-stats {
+  align-self: flex-end;
+  margin-bottom: 1rem;
+}
+
+.champion-page .info-stats {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  max-width: 175px;
+}
+
+.champion-page .info-badge {
+  width: auto;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.champion-page .info-badge * {
+  width: 2.2rem;
+  text-align: center;
+  font-size: 0.75rem;
+  padding: 0px 0px;
+}
+
+.champion-page .info-badge div:first-child.c-ad {
+  background-color: rgb(255, 56, 56);
+}
+.champion-page .info-badge div:first-child.c-ap {
+  background-color: rgb(56, 103, 255);
+}
+.champion-page .info-badge div:first-child.c-def {
+  background-color: rgb(67, 151, 34);
+}
+.champion-page .info-badge div:first-child.c-dif {
+  background-color: rgb(165, 56, 255);
+}
+
+.champion-page .info-badge div:last-child {
+  background-color: white;
+  color: black;
+}
+
+.skins-tab .col {
+  margin-bottom: 1rem;
+}
+
+.skins-tab img {
+  border-radius: 10px;
+}
+
+.overlay-container {
+  width: 100%;
+  position: relative;
+}
+
+.overlay-container div {
+  position: absolute;
+  bottom: 0;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 0.4rem;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.images-container {
+  padding: 15px 200px;
+}
+
+ul.images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-gap: 15px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.images > li {
+  position: relative;
+  padding-top: 66%;
+}
+
+ul.images > li img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+ul.images > li .fullscreen-btn .fullscreen-image:first-child img {
+  border-radius: 10px;
+}
+
+@media (max-width: 567px) {
+  ul.images {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 1000px) {
+  .images-container {
+    padding: 15px;
+  }
+
+  ul.images {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (min-width: 1400px) {
+  ul.images {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+}
+
+button.fullscreen-btn:focus {
+  outline: none;
+}
+
+.fullscreen-toggle,
+.fullscreen-toggle:focus,
+.fullscreen-toggle:active,
+.fullscreen-exit-btn,
+.fullscreen-exit-btn:focus,
+.fullscreen-exit-btn:active {
+  outline: none;
+}
+
+.panel-def-size {
+  min-height: 100vh;
+}
