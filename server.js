@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const pino = require("express-pino-logger");
 const dotenv = require("dotenv");
 
 const db = require("./src/db");
@@ -11,7 +10,6 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(pino);
 
 dotenv.config();
 const port = process.env.PORT || 5001;
