@@ -1,0 +1,12 @@
+.middle {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-direction: column;
+}
+
+.middle > * {
+  width: 50%;
+}

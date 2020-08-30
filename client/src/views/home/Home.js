@@ -2,9 +2,22 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import cookiesApi from "../../api/cookies";
 import api from "../../api";
+import Loader from "react-loader-spinner";
+import "whatwg-fetch";
 
 import BaseNavbar from "../../components/navbar";
-import "whatwg-fetch";
+import Footer from "../../components/footer";
+import FreeChampRotation from "../../components/freeChampRotation";
+
+import bannerBackground from "../../assets/home_bg.png";
+
+import "./Home.css";
+
+const bannerImg = {
+  padding: "0",
+  background: `url(${bannerBackground}) no-repeat center center `,
+  backgroundSize: "cover",
+};
 
 const Home = (props) => {
   const [name, setName] = useState("");
@@ -37,13 +50,29 @@ const Home = (props) => {
 
   return (
     <div>
-      <BaseNavbar {...props} />
-      <div className="one-page">
+      <BaseNavbar {...props} noSearch />
+      <div className="one-page-plus-minus-nav-minus-footer">
+        <div className="half-page" style={bannerImg}>
+          <div className="middle">
+            <h2>LOL É MERDA</h2>
+            <input />
+          </div>
+        </div>
+        {/* <Loader
+          className="my-5"
+          type="ThreeDots"
+          color="#00BFFF"
+          height={200}
+          width={200}
+          timeout={3000} //3 secs
+        /> */}
         <h1 className=""> HOME </h1>
-        <div> {userInfo !== null && userInfo.favorites} </div>
-        <div> {UID} </div>
-        <div>{searchInfo !== null && searchInfo.summonerLevel}</div>
+        {/* <div> {userInfo !== null && userInfo.favorites} </div> */}
+        {/* <div> {UID} </div> */}
+        {/* <div>{searchInfo !== null && searchInfo.summonerLevel}</div> */}
+        <FreeChampRotation />
       </div>
+      <Footer />
     </div>
   );
 };
