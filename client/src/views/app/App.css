@@ -35,3 +35,11 @@ code {
 .one-page-plus {
   min-height: 100%;
 }
+
+.one-page-plus-minus-nav-minus-footer {
+  min-height: calc(100vh - 112px - 48px);
+}
+
+.half-page {
+  height: 60vh;
+}

@@ -4,11 +4,13 @@ import Cookies from "js-cookie";
 import "./App.css";
 
 import Champions from "../champions";
+import Champion from "../champion";
 import Home from "../home";
 import Items from "../items";
 import Leaderboard from "../leaderboard";
 import Statistics from "../statistics";
 import Summoner from "../summoner";
+import Multi from "../multi";
 
 function App() {
   const [region, setRegion] = useState(Cookies.get("Region"));
@@ -23,7 +25,7 @@ function App() {
       Cookies.set("Language", "en");
       setLanguage("en");
     }
-  });
+  }, [region, language]);
 
   return (
     <BrowserRouter>
@@ -34,10 +36,14 @@ function App() {
             path="/:lang/:region/summoner/:username?"
             component={Summoner}
           />
-          <Route path="/:lang/:region/multi/:query?" component={Summoner} />
+          <Route path="/:lang/:region/multi/:query?" component={Multi} />
           <Route path="/:lang/:region/statistics" component={Statistics} />
           <Route path="/:lang/:region/leaderboard" component={Leaderboard} />
           <Route path="/:lang/:region/champions" component={Champions} />
+          <Route
+            path="/:lang/:region/champion/:champion?"
+            component={Champion}
+          />
           <Route path="/:lang/:region/items" component={Items} />
           <Route path="/:lang/:region/profile-icons" component={Home} />
           <Route path="/:lang/:region/runes" component={Home} />

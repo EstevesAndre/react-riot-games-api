@@ -5,7 +5,6 @@ import axios from "axios";
 
 import BaseNavbar from "../../components/navbar";
 import FreeChampRotation from "../../components/freeChampRotation";
-// import champions from "../../assets/riot/champions.json";
 
 import "./Champions.css";
 
