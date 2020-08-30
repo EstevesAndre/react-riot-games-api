@@ -61,11 +61,23 @@ export const updateHeaderCookies = (lang, region) => {
   if (up1Status === "correct" && up2Status === "correct") {
     return { status: true };
   } else if (up1Status === "correct") {
-    return { status: false, pathParams: `/${lang}/${up2Status}` };
+    return {
+      status: false,
+      lang: lang,
+      region: up2Status,
+    };
   } else if (up2Status === "correct") {
-    return { status: false, pathParams: `/${up1Status}/${region}` };
+    return {
+      status: false,
+      lang: up1Status,
+      region: region,
+    };
   } else {
-    return { status: false, pathParams: `/${up1Status}/${up2Status}` };
+    return {
+      status: false,
+      lang: up1Status,
+      region: up2Status,
+    };
   }
 };
 
