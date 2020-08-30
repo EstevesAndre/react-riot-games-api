@@ -59,7 +59,7 @@ const Champions = (props) => {
                     src={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${champ["image"].full}`}
                   />
                   <br />
-                  <div className="champ-name">{champ.name}</div>
+                  <div className="champ-name bold">{champ.name}</div>
                   <ReactTooltip
                     id={`champion${champ.key}tip`}
                     className="champ-tooltip"
