@@ -1,0 +1,22 @@
+.free-champs-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.free-champs-list a {
+  padding: 0.2rem;
+}
+
+.free-champs-list a img,
+.free-champs-list a .default-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.free-champs-list a .default-img {
+  background-color: rgb(36, 36, 36);
+}
