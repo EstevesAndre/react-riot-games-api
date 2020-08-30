@@ -1,0 +1,44 @@
+.champs-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: baseline;
+  font-size: 12px;
+}
+
+.champs-list a {
+  padding: 0.5rem 0.2rem;
+  color: rgb(36, 5, 5);
+}
+
+.champs-list a:hover {
+  color: saddlebrown;
+  text-decoration: none;
+}
+
+.champs-list .champ-name {
+  overflow: hidden;
+  width: 80px;
+  cursor: pointer;
+  /* white-space: nowrap; */
+}
+
+.champs-list .champ-tooltip {
+  text-transform: capitalize;
+}
+
+.champs-list a img,
+.champs-list a .default-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.champs-list a .default-img {
+  margin-left: 10px;
+}
+
+.champs-list a .default-img {
+  background-color: rgb(36, 36, 36);
+}
