@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Switch from "react-switch";
 import Cookies from "js-cookie";
-import api from "../../api";
-import cookiesApi from "../../api/cookies";
 
 // reactstrap components
 import {
@@ -18,11 +17,13 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  NavbarText,
   Form,
   Input,
   Button,
 } from "reactstrap";
+
+import api from "../../api";
+import cookiesApi from "../../api/cookies";
 
 import Logo from "../../assets/league_logo.svg";
 import LogoB from "../../assets/league_logo_black.svg";
@@ -31,6 +32,8 @@ import Globe from "../../assets/earth.svg";
 import "./Navbar.css";
 
 const BaseNavbar = (props) => {
+  const [firstLoad, setFirstLoad] = useState(true);
+  const [darkModeSwitchChecked, setDarkModeSwitchChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [summonerInput, setSummonerInput] = useState("");
   const [region, setRegion] = useState(props.match.params.region || "EUW");
@@ -123,22 +126,37 @@ const BaseNavbar = (props) => {
   const summonerSearchSubmit = (e) => {
     e.preventDefault();
 
-    const inputText = summonerInput;
+    var requestText = summonerInput;
     setSummonerInput("");
 
-    console.log("Search for summoner: " + inputText);
-    console.log("Region: " + region);
+    requestText = requestText.replace(/joined the room,/gi, ",");
+    requestText = requestText.replace(/joined the room./gi, ",");
+    requestText = requestText.replace(/\s,/g, ",");
+    requestText = requestText.replace(/,\s/g, ",");
 
-    // TODO ver  se o input é multiplo,  IF yes route  multi/query ->, ohterwise below route
+    if (requestText.endsWith(","))
+      requestText = requestText.substring(0, requestText.length - 2);
 
-    props.history.push(
-      `/${language}/${region}/summoner/username=${encodeURI(inputText)}`
-    );
+    if (requestText.includes(",")) {
+      requestText = requestText.replace(/,/g, "%2C");
+
+      console.log("Search for list of summoners: " + requestText);
+      console.log("Region: " + region);
+
+      props.history.push(
+        `/${language}/${region}/multi/query=${encodeURI(requestText)}`
+      );
+    } else {
+      console.log("Search for summoner: " + requestText);
+      console.log("Region: " + region);
+
+      props.history.push(
+        `/${language}/${region}/summoner/username=${encodeURI(requestText)}`
+      );
+    }
   };
 
   const handleChange = (e) => {
-    // TODO Remove multi summoner input, {name sd asd das asdsa, name asds ads  as,}
-    // tirar tudo menos a primeira palavra e virgula
     setSummonerInput(e.target.value);
   };
 
@@ -149,7 +167,13 @@ const BaseNavbar = (props) => {
     );
 
     if (!response.status) {
-      props.history.push("/");
+      setRegion(response.region);
+      setLanguage(response.lang);
+      props.page
+        ? props.history.push(
+            `/${response.lang}/${response.region}/${props.page}`
+          )
+        : props.history.push(`/${response.lang}/${response.region}`);
     }
 
     if (region !== props.match.params.region) {
@@ -162,26 +186,24 @@ const BaseNavbar = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log("LANG: " + language);
-    Cookies.set("Language", language);
-    props.page
-      ? props.history.push(`/${language}/${region}/${props.page}`)
-      : props.history.push(`/${language}/${region}`);
-  }, [language]);
-
-  useEffect(() => {
-    console.log("REGION: " + region);
-    Cookies.set("Region", region);
-    props.page
-      ? props.history.push(`/${language}/${region}/${props.page}`)
-      : props.history.push(`/${language}/${region}`);
-  }, [region]);
+    if (!firstLoad) {
+      console.log("LANG: " + language);
+      console.log("REGION: " + region);
+      Cookies.set("Language", language);
+      Cookies.set("Region", region);
+      props.page
+        ? props.history.push(`/${language}/${region}/${props.page}`)
+        : props.history.push(`/${language}/${region}`);
+    } else {
+      setFirstLoad(false);
+    }
+  }, [language, region]);
 
   return (
     <>
       <header>
         <Navbar dark color="dark" expand="lg">
-          <Container>
+          <div className="nav-container">
             <NavbarBrand href="/">LOGO</NavbarBrand>
             <Nav className="mr-auto" navbar>
               <NavItem className="header-item">
@@ -193,11 +215,22 @@ const BaseNavbar = (props) => {
               <NavItem className="header-item">
                 <NavLink>
                   <img className="header-icon" src={Logo} />
-                  TFT
+                  Teamfight Tactics
                 </NavLink>
               </NavItem>
             </Nav>
-            <div className="language-container">
+            <Switch
+              onChange={() => setDarkModeSwitchChecked(!darkModeSwitchChecked)}
+              checked={darkModeSwitchChecked}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              onColor="#898"
+              offColor="#898"
+              onHandleColor="#fff"
+              offHandleColor="#000"
+              activeBoxShadow="0 0 2px 3px #565"
+            />
+            <div className="language-container ml-3">
               <UncontrolledDropdown inNavbar>
                 <DropdownToggle caret>
                   <img src={Globe} alt="Logo" />
@@ -215,14 +248,14 @@ const BaseNavbar = (props) => {
                 </DropdownMenu>
               </UncontrolledDropdown>
             </div>
-          </Container>
+          </div>
         </Navbar>
       </header>
-      <Navbar dark color="info" expand="lg">
+      <Navbar dark color="success" expand="lg">
         <Container>
           <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
+            <Nav className="mr-auto nav-links" navbar>
               <NavItem>
                 <NavLink href={`/${language}/${region}/champions`}>
                   Champions
@@ -237,31 +270,33 @@ const BaseNavbar = (props) => {
                 <NavLink href={`/${language}/${region}/items`}>Items</NavLink>
               </NavItem>
             </Nav>
-            <div className="search-container">
-              <UncontrolledDropdown inNavbar>
-                <DropdownToggle caret>{region}</DropdownToggle>
-                <DropdownMenu color="inherit" right className="menu-dropdown">
-                  {regions.map((region) => (
-                    <DropdownItem
-                      key={region.id}
-                      onClick={() => setRegion(region.id)}
-                    >
-                      <img src={region.img} alt="Logo" />
-                      <span>{region.name}</span>
-                    </DropdownItem>
-                  ))}
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <Form onSubmit={summonerSearchSubmit}>
-                <Input
-                  placeholder="Name1, Name2, ..."
-                  type="text"
-                  value={summonerInput}
-                  onChange={handleChange}
-                />
-                <Button>Goat</Button>
-              </Form>
-            </div>
+            {!props.noSearch && (
+              <div className="search-container">
+                <UncontrolledDropdown inNavbar>
+                  <DropdownToggle caret>{region}</DropdownToggle>
+                  <DropdownMenu color="inherit" right className="menu-dropdown">
+                    {regions.map((region) => (
+                      <DropdownItem
+                        key={region.id}
+                        onClick={() => setRegion(region.id)}
+                      >
+                        <img src={region.img} alt="Logo" />
+                        <span>{region.name}</span>
+                      </DropdownItem>
+                    ))}
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+                <Form onSubmit={summonerSearchSubmit}>
+                  <Input
+                    placeholder="Name1, Name2, ..."
+                    type="text"
+                    value={summonerInput}
+                    onChange={handleChange}
+                  />
+                  <Button>Goat</Button>
+                </Form>
+              </div>
+            )}
           </Collapse>
         </Container>
       </Navbar>
