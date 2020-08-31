@@ -17,7 +17,7 @@ const port = process.env.PORT || 5001;
 // db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 app.get("/api/greeting", (req, res) => {
-  const name = req.query.name || "World";
+  const name = req.query.name || "Wosrld";
   res.setHeader("Content-Type", "application/json");
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 });
