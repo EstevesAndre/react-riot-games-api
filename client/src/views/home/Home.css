@@ -10,3 +10,15 @@
 .middle > * {
   width: 50%;
 }
+
+@media (max-width: 667px) {
+  .middle > * {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .middle > * {
+    width: 30%;
+  }
+}

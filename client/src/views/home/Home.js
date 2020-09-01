@@ -8,6 +8,7 @@ import "whatwg-fetch";
 import BaseNavbar from "../../components/navbar";
 import Footer from "../../components/footer";
 import FreeChampRotation from "../../components/freeChampRotation";
+import SearchSummonerForm from "../../components/searchSummonerForm";
 
 import bannerBackground from "../../assets/home_bg.png";
 
@@ -57,8 +58,8 @@ const Home = (props) => {
       <div className="one-page-plus-minus-nav-minus-footer">
         <div className="half-page" style={bannerImg}>
           <div className="middle">
-            <h2>LOL É MERDA</h2>
-            <input />
+            <h2 className="pb-4">OP.GG</h2>
+            <SearchSummonerForm {...props} />
           </div>
         </div>
         {/* <Loader

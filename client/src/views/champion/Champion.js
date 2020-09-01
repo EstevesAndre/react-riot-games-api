@@ -234,14 +234,18 @@ const OverviewTab = (props) => {
           <h4>Lore</h4>
           <p>{champion.lore}</p>
         </Col>
-        <Col className="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
-          <h4>Ally tips</h4>
-          <p>{champion.allytips}</p>
-        </Col>
-        <Col className="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
-          <h4>Enemy tips</h4>
-          <p>{champion.enemytips}</p>
-        </Col>
+        {champion.allytips.length !== 0 && (
+          <Col className="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+            <h4>Ally tips</h4>
+            <p>{champion.allytips}</p>
+          </Col>
+        )}
+        {champion.enemytips.length !== 0 && (
+          <Col className="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+            <h4>Enemy tips</h4>
+            <p>{champion.enemytips}</p>
+          </Col>
+        )}
       </Row>
     </div>
   );

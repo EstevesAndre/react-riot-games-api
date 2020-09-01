@@ -11,10 +11,6 @@
   margin-right: 6px;
 }
 
-.search-container .menu-dropdown button {
-  padding: 0.25rem 0.75rem 0.25rem 0.5rem;
-}
-
 .header-item .header-icon {
   width: 20px;
 }
@@ -23,33 +19,7 @@
   display: flex;
 }
 
-.search-container {
-  display: flex;
-  vertical-align: middle;
-  /* padding-top: 0.5rem; */
-}
-
-.search-container .dropdown button {
-  border-bottom-right-radius: 0px;
-  border-top-right-radius: 0px;
-  min-width: 82px;
-}
-
-.search-container form input {
-  border-radius: 0px;
-  display: inline-block;
-  width: 250px;
-}
-
-.search-container form button {
-  vertical-align: top;
-  border-bottom-left-radius: 0px;
-  border-top-left-radius: 0px;
-  background-clip: unset;
-}
-
-.language-container .dropdown-toggle,
-.search-container .dropdown-toggle {
+.language-container .dropdown-toggle {
   text-transform: uppercase;
 }
 
@@ -72,26 +42,21 @@
   margin-right: 5px;
 }
 
-.language-container .dropdown-menu,
-.search-container .dropdown-menu {
+.language-container .dropdown-menu {
   background-color: #343a40;
 }
 
-.language-container .dropdown-menu .dropdown-item,
-.search-container .dropdown-menu .dropdown-item {
+.language-container .dropdown-menu .dropdown-item {
   color: #c5c8cb;
 }
 
-.language-container .dropdown-menu .dropdown-item:hover,
-.search-container .dropdown-menu .dropdown-item:hover {
+.language-container .dropdown-menu .dropdown-item:hover {
   background-color: #3e4750;
   color: white;
 }
 
 .language-container .dropdown-menu .dropdown-item:active,
-.language-container .dropdown-menu .dropdown-item:focus,
-.search-container .dropdown-menu .dropdown-item:active,
-.search-container .dropdown-menu .dropdown-item:focus {
+.language-container .dropdown-menu .dropdown-item:focus {
   background-color: transparent;
   outline: none;
   box-shadow: none;
@@ -104,15 +69,6 @@
 }
 
 @media (max-width: 480px) {
-  .search-container form input {
-    width: auto;
-    margin-bottom: 1rem;
-  }
-
-  .search-container {
-    margin-top: 1rem;
-  }
-
   .nav-links {
     text-align: left;
     margin-left: 0.5rem;
