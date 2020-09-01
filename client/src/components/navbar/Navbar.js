@@ -202,7 +202,7 @@ const BaseNavbar = (props) => {
   return (
     <>
       <header>
-        <Navbar dark color="dark" expand="lg">
+        <Navbar dark className="navbar-1-color" expand="lg">
           <div className="nav-container">
             <NavbarBrand href="/">LOGO</NavbarBrand>
             <Nav className="mr-auto" navbar>
@@ -251,7 +251,7 @@ const BaseNavbar = (props) => {
           </div>
         </Navbar>
       </header>
-      <Navbar dark color="success" expand="lg">
+      <Navbar dark className="navbar-2-color" expand="lg">
         <Container>
           <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
           <Collapse isOpen={isOpen} navbar>
