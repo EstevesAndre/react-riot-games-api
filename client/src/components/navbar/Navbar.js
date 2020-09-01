@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Switch from "react-switch";
 import Cookies from "js-cookie";
 
@@ -22,11 +21,11 @@ import {
   Button,
 } from "reactstrap";
 
-import api from "../../api";
+// import api from "../../api";
 import cookiesApi from "../../api/cookies";
 
 import Logo from "../../assets/league_logo.svg";
-import LogoB from "../../assets/league_logo_black.svg";
+// import LogoB from "../../assets/league_logo_black.svg";
 import Globe from "../../assets/earth.svg";
 
 import "./Navbar.css";
@@ -183,7 +182,14 @@ const BaseNavbar = (props) => {
     if (language !== props.match.params.lang) {
       setLanguage(props.match.params.lang);
     }
-  }, []);
+  }, [
+    language,
+    props.history,
+    props.match.params.lang,
+    props.match.params.region,
+    props.page,
+    region,
+  ]);
 
   useEffect(() => {
     if (!firstLoad) {
@@ -208,13 +214,13 @@ const BaseNavbar = (props) => {
             <Nav className="mr-auto" navbar>
               <NavItem className="header-item">
                 <NavLink active>
-                  <img className="header-icon" src={Logo} />
+                  <img className="header-icon" src={Logo} alt="logo" />
                   League of Legends
                 </NavLink>
               </NavItem>
               <NavItem className="header-item">
                 <NavLink>
-                  <img className="header-icon" src={Logo} />
+                  <img className="header-icon" src={Logo} alt="logo" />
                   Teamfight Tactics
                 </NavLink>
               </NavItem>

@@ -57,6 +57,7 @@ const Champions = (props) => {
                     data-tip
                     data-for={`champion${champ.key}tip`}
                     src={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${champ["image"].full}`}
+                    alt="full-champion"
                   />
                   <br />
                   <div className="champ-name">{champ.name}</div>

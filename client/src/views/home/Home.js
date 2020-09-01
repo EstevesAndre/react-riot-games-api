@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import cookiesApi from "../../api/cookies";
 import api from "../../api";
-import Loader from "react-loader-spinner";
+// import Loader from "react-loader-spinner";
 import "whatwg-fetch";
 
 import BaseNavbar from "../../components/navbar";
@@ -20,8 +20,6 @@ const bannerImg = {
 };
 
 const Home = (props) => {
-  const [name, setName] = useState("");
-  const [greeting, setGreeting] = useState("");
   const [userInfo, setUserInfo] = useState(null);
   const [UID, setUID] = useState(Cookies.get("UID"));
   const [searchInfo, setSearchInfo] = useState(null);
@@ -43,10 +41,15 @@ const Home = (props) => {
       setUserInfo(response.data.data);
     }
 
-    UID ? fetchData() : cookiesApi.createNewUser();
+    if (UID) {
+      fetchData();
+    } else {
+      const responseUID = cookiesApi.createNewUser();
+      setUID(responseUID);
+    }
 
     testRequestToRiotAPI();
-  }, []);
+  }, [UID]);
 
   return (
     <div>
@@ -67,9 +70,9 @@ const Home = (props) => {
           timeout={3000} //3 secs
         /> */}
         <h1 className=""> HOME </h1>
-        {/* <div> {userInfo !== null && userInfo.favorites} </div> */}
-        {/* <div> {UID} </div> */}
-        {/* <div>{searchInfo !== null && searchInfo.summonerLevel}</div> */}
+        <div> {userInfo !== null && userInfo.favorites} </div>
+        <div> {UID} </div>
+        <div>{searchInfo !== null && searchInfo.summonerLevel}</div>
         <FreeChampRotation />
       </div>
       <Footer />

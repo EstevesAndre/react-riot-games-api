@@ -87,7 +87,10 @@ export const createNewUser = async () => {
   if (res.data.success) {
     console.log(res.data.message);
     Cookies.set("UID", res.data.id.toString());
+
+    return res.data.id.toString();
   }
+  return "";
 };
 
 const cookiesApi = {

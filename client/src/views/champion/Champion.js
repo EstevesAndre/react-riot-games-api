@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ReactTooltip from "react-tooltip";
-import Cookies from "js-cookie";
+// import ReactTooltip from "react-tooltip";
 import axios from "axios";
 import {
   Row,
@@ -12,9 +11,8 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
-  Button,
 } from "reactstrap";
-import { Slider, RangeSlider } from "rsuite";
+import { Slider } from "rsuite";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import BaseNavbar from "../../components/navbar";
@@ -30,7 +28,7 @@ const Champion = (props) => {
 
   useEffect(() => {
     const champ = props.match.params.champion || "";
-    if (champ == "") {
+    if (champ === "") {
       setInvalidChampion(true);
       return;
     }
@@ -48,12 +46,12 @@ const Champion = (props) => {
         setInvalidChampion(true);
         console.log(err);
       });
-  }, []);
+  }, [props.match.params.champion]);
 
-  useEffect(() => {
-    console.log(invalidChampion);
-    console.log(champion);
-  }, [invalidChampion, champion]);
+  // useEffect(() => {
+  //   console.log(invalidChampion);
+  //   console.log(champion);
+  // }, [invalidChampion, champion]);
 
   return (
     <div>
@@ -103,6 +101,7 @@ const ChampionInformation = (props) => {
             <img
               className="mx-2 champ-img"
               src={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${champion["image"].full}`}
+              alt="champion"
             />
           </Col>
           <Col className="col-12 col-sm-6 text-left main-stats">
@@ -187,7 +186,9 @@ const ChampionInformation = (props) => {
 };
 
 const InfoBadge = (props) => {
-  const { id, name, value, color } = props;
+  // todo name to add  tooltip
+  // const { id, name, value, color } = props;
+  const { id, value, color } = props;
 
   return (
     <div className="info-badge">
@@ -242,13 +243,6 @@ const OverviewTab = (props) => {
           <p>{champion.enemytips}</p>
         </Col>
       </Row>
-
-      <p>
-        Source:{" "}
-        <a href="https://en.wikipedia.org/wiki/Mario" target="_blank">
-          Wikipedia
-        </a>
-      </p>
     </div>
   );
 };
@@ -494,12 +488,6 @@ const SpellsTab = (props) => {
         generally center upon rescuing Princess Peach from the Koopa villain
         Bowser. His younger brother and sidekick is Luigi.
       </p>
-      <p>
-        Source:{" "}
-        <a href="https://en.wikipedia.org/wiki/Mario" target="_blank">
-          Wikipedia
-        </a>
-      </p>
     </div>
   );
 };
@@ -517,12 +505,6 @@ const RunesTab = (props) => {
         Italian plumber who resides in the Mushroom Kingdom, his adventures
         generally center upon rescuing Princess Peach from the Koopa villain
         Bowser. His younger brother and sidekick is Luigi.
-      </p>
-      <p>
-        Source:{" "}
-        <a href="https://en.wikipedia.org/wiki/Mario" target="_blank">
-          Wikipedia
-        </a>
       </p>
     </div>
   );

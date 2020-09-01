@@ -38,15 +38,6 @@ const FreeChampRotation = () => {
   ]);
   const [maxNewPlayerLevel, setMaxNewPlayerLevel] = useState(10);
 
-  const testFreeChampionRotation = () => {
-    fetch("/api/riot/free-champion-rotation")
-      .then((response) => response.json())
-      .then((text) => {
-        parseFreeChampionRotationInfo(text);
-      })
-      .catch((err) => console.log(err));
-  };
-
   const parseFreeChampionRotationInfo = (info) => {
     let rot = [];
     for (let i = 0; i < info.freeChampionIds.length; i++) {
@@ -69,7 +60,12 @@ const FreeChampRotation = () => {
   };
 
   useEffect(() => {
-    testFreeChampionRotation();
+    fetch("/api/riot/free-champion-rotation")
+      .then((response) => response.json())
+      .then((text) => {
+        parseFreeChampionRotationInfo(text);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -82,7 +78,7 @@ const FreeChampRotation = () => {
             data-value={loading ? "" : item.name}
             data-tip={loading ? "future" : item.name}
             data-for={`champion${item.id}tip`}
-            href=""
+            href="/"
           >
             {loading ? (
               <div className="default-img"></div>
@@ -90,6 +86,7 @@ const FreeChampRotation = () => {
               <div>
                 <img
                   src={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
+                  alt="name"
                 />
                 <ReactTooltip
                   id={`champion${item.id}tip`}
@@ -110,13 +107,14 @@ const FreeChampRotation = () => {
           <a
             key={loading ? index : item.id}
             data-value={loading ? "" : item.name}
-            href=""
+            href="/"
           >
             {loading ? (
               <div className="default-img"></div>
             ) : (
               <img
                 src={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
+                alt="name"
               />
             )}
           </a>
