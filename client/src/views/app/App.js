@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
 import "./App.css";
 
+import "rsuite/dist/styles/rsuite-default.css";
+
 import Champions from "../champions";
 import Champion from "../champion";
 import Home from "../home";
