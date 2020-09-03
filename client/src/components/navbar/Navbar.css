@@ -84,3 +84,7 @@
   padding-right: 2rem;
   padding-left: 2rem;
 }
+
+.navbar-with-search {
+  width: 100%;
+}

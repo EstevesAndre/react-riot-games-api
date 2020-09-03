@@ -93,11 +93,122 @@ export const createNewUser = async () => {
   return "";
 };
 
+const getRecentSearches = () => {
+  const recent = Cookies.get("recentSearches");
+  const favorite = Cookies.get("favoriteSearches");
+
+  let ret = [];
+
+  if (!(recent === undefined)) {
+    const splited = recent.split("%24");
+
+    for (let i = 0; i < splited.length; i++) {
+      ret.push({
+        summoner: decodeURI(splited[i]),
+        isFavorite: favorite.includes(splited[i]),
+      });
+    }
+  }
+
+  return ret;
+};
+
+const getFavoriteSearches = () => {
+  const favorite = Cookies.get("favoriteSearches");
+
+  let ret = [];
+  if (!(favorite === undefined)) {
+    const splited = favorite.split("%24");
+
+    for (let i = 0; i < splited.length; i++) {
+      ret.push({ summoner: decodeURI(splited[i]) });
+    }
+  }
+  return ret;
+};
+
+const saveSearchesCookies = (isFavorite, searchArr) => {
+  let search = "";
+
+  for (let i = 0; i < searchArr.length; i++) {
+    search +=
+      encodeURI(searchArr[i].summoner) +
+      (i < searchArr.length - 1 ? "%24" : "");
+  }
+
+  if (isFavorite) Cookies.set("favoriteSearches", search);
+  else Cookies.set("recentSearches", search);
+};
+
+export const getSummonerSearches = () => {
+  return {
+    searches: getRecentSearches(),
+    favorites: getFavoriteSearches(),
+  };
+};
+
+export const removeSummonerSearch = (isFavorite, name) => {
+  if (isFavorite) {
+    var favorites = getFavoriteSearches();
+    favorites = favorites.filter((fav) => fav.summoner !== name);
+    saveSearchesCookies(isFavorite, favorites);
+
+    return {
+      searches: getRecentSearches(),
+      favorites: favorites,
+    };
+  } else {
+    var recents = getRecentSearches();
+    recents = recents.filter((rec) => rec.summoner !== name);
+    saveSearchesCookies(isFavorite, recents);
+
+    return {
+      searches: recents,
+      favorites: getFavoriteSearches(),
+    };
+  }
+};
+
+export const addSummonerSearch = (name) => {
+  var recents = getRecentSearches();
+  recents = recents.filter((rec) => rec.summoner !== name);
+  recents.unshift({ summoner: name, isFavorite: false });
+  if (recents.length >= 10) recents = recents.slice(0, 9);
+
+  saveSearchesCookies(false, recents);
+
+  return {
+    searches: recents,
+    favorites: getFavoriteSearches(),
+  };
+};
+
+export const toggleFavorite = (name, isFavorite) => {
+  var favorites = getFavoriteSearches();
+
+  if (isFavorite) {
+    favorites = favorites.filter((fav) => fav.summoner !== name);
+  } else {
+    favorites.unshift({ summoner: name });
+  }
+
+  saveSearchesCookies(true, favorites);
+
+  return {
+    searches: getRecentSearches(),
+    favorites: favorites,
+  };
+};
+
 const cookiesApi = {
   updateLanguageCookie,
   updateRegionCookie,
   updateHeaderCookies,
   createNewUser,
+  getSummonerSearches,
+  removeSummonerSearch,
+  addSummonerSearch,
+  toggleFavorite,
 };
 
 export default cookiesApi;

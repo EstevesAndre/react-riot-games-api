@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Switch from "react-switch";
+import Cookies from "js-cookie";
 
 // reactstrap components
 import {
@@ -9,7 +10,6 @@ import {
   NavItem,
   NavLink,
   Nav,
-  Container,
   NavbarToggler,
   UncontrolledDropdown,
   DropdownToggle,
@@ -26,7 +26,9 @@ import SearchSummonerForm from "../searchSummonerForm";
 import "./Navbar.css";
 
 const BaseNavbar = (props) => {
-  const [darkModeSwitchChecked, setDarkModeSwitchChecked] = useState(false);
+  const [darkModeSwitchChecked, setDarkModeSwitchChecked] = useState(
+    Cookies.get("dark") === "true" ? true : false
+  );
   const [isOpen, setIsOpen] = useState(false);
   const [language, setLanguage] = useState(props.match.params.lang || "en");
   const languages = [
@@ -57,6 +59,11 @@ const BaseNavbar = (props) => {
     },
   ];
 
+  const switchDarkMode = () => {
+    Cookies.set("dark", darkModeSwitchChecked ? false : true);
+    setDarkModeSwitchChecked(!darkModeSwitchChecked);
+  };
+
   return (
     <>
       <header>
@@ -78,7 +85,7 @@ const BaseNavbar = (props) => {
               </NavItem>
             </Nav>
             <Switch
-              onChange={() => setDarkModeSwitchChecked(!darkModeSwitchChecked)}
+              onChange={() => switchDarkMode()}
               checked={darkModeSwitchChecked}
               uncheckedIcon={false}
               checkedIcon={false}
@@ -110,7 +117,7 @@ const BaseNavbar = (props) => {
         </Navbar>
       </header>
       <Navbar dark className="navbar-2-color" expand="lg">
-        <Container>
+        <div className="navbar-with-search">
           <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto nav-links" navbar>
@@ -138,7 +145,7 @@ const BaseNavbar = (props) => {
             </Nav>
             {!props.noSearch && <SearchSummonerForm {...props} />}
           </Collapse>
-        </Container>
+        </div>
       </Navbar>
     </>
   );

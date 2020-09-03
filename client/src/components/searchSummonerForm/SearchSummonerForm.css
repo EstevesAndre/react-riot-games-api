@@ -11,7 +11,10 @@
 .search-container .dropdown button {
   border-bottom-right-radius: 0px;
   border-top-right-radius: 0px;
+  border-bottom-left-radius: 0px;
   min-width: 82px;
+  outline: none;
+  box-shadow: none;
 }
 
 .search-container form {
@@ -21,6 +24,7 @@
 .search-container form input {
   border-radius: 0px;
   display: inline-block;
+  border: none;
   width: 75%;
 }
 
@@ -28,8 +32,11 @@
   vertical-align: top;
   border-bottom-left-radius: 0px;
   border-top-left-radius: 0px;
+  border-bottom-right-radius: 0px;
   background-clip: unset;
   width: 25%;
+  outline: none;
+  box-shadow: none;
   /* min-width: 50px; */
 }
 
@@ -58,9 +65,9 @@
 }
 
 @media (max-width: 480px) {
-  .search-container form input {
+  /* .search-container form input {
     margin-bottom: 2rem;
-  }
+  } */
 
   .search-container {
     margin-top: 1rem;
@@ -77,4 +84,94 @@
   .search-container {
     min-width: 400px;
   }
+}
+
+.recents-container,
+.tab-content {
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.recents-container {
+  width: 100%;
+  position: absolute;
+}
+
+.recents-container.disabled {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 300ms, opacity 300ms;
+}
+.recents-container.active {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 300ms;
+}
+
+.search-recents-parent {
+  position: relative;
+}
+
+.tab-content {
+  min-height: 100px;
+  color: #575757;
+  background-color: #dfdfdf;
+}
+
+.recents-container .btn-radius {
+  border-radius: 0px !important;
+}
+
+.list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  padding: 0.3rem 0rem;
+}
+
+.list-container * {
+  padding: 0.2rem 0.7rem;
+}
+
+.search-item {
+  display: flex;
+  flex-flow: row nowrap;
+  font-size: 12px;
+}
+
+.search-item > :first-child {
+  flex-grow: 2;
+  text-align: left;
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+  padding: 0;
+  align-self: center;
+}
+
+.search-item div a {
+  margin: 0;
+  padding: 0.2rem 0;
+  white-space: nowrap;
+  color: inherit;
+  text-decoration: none;
+}
+
+.search-item .icon,
+.search-item .icon i {
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  color: grey;
+}
+
+.search-item .icon i {
+  font-size: 10px;
+}
+
+.close-container:hover i,
+.favorite-container:hover i {
+  cursor: pointer;
+}
+
+.search-item .icon.active i {
+  color: red;
 }
