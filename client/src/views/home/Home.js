@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import cookiesApi from "../../api/cookies";
-import api from "../../api";
+// import api from "../../api";
 // import Loader from "react-loader-spinner";
 import "whatwg-fetch";
 
@@ -22,7 +22,7 @@ const bannerImg = {
 
 const Home = (props) => {
   const [userInfo, setUserInfo] = useState(null);
-  const [UID, setUID] = useState(Cookies.get("UID"));
+  // const [UID, setUID] = useState(Cookies.get("UID"));
   const [searchInfo, setSearchInfo] = useState(null);
 
   const testRequestToRiotAPI = () => {
@@ -35,22 +35,25 @@ const Home = (props) => {
       .catch((err) => console.log(err));
   };
 
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await api.getUserById(UID);
+  //     console.log(response.data.data);
+  //     setUserInfo(response.data.data);
+  //   }
+
+  //   if (UID) {
+  //     fetchData();
+  //   } else {
+  //     const responseUID = cookiesApi.createNewUser();
+  //     setUID(responseUID);
+  //   }
+
+  // }, [UID]);
+
   useEffect(() => {
-    async function fetchData() {
-      const response = await api.getUserById(UID);
-      console.log(response.data.data);
-      setUserInfo(response.data.data);
-    }
-
-    if (UID) {
-      fetchData();
-    } else {
-      const responseUID = cookiesApi.createNewUser();
-      setUID(responseUID);
-    }
-
     testRequestToRiotAPI();
-  }, [UID]);
+  }, []);
 
   return (
     <div>
@@ -72,7 +75,7 @@ const Home = (props) => {
         /> */}
         <h1 className=""> HOME </h1>
         <div> {userInfo !== null && userInfo.favorites} </div>
-        <div> {UID} </div>
+        {/* <div> {UID} </div> */}
         <div>{searchInfo !== null && searchInfo.summonerLevel}</div>
         <FreeChampRotation />
       </div>

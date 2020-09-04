@@ -67,12 +67,12 @@ const BaseNavbar = (props) => {
   return (
     <>
       <header>
-        <Navbar dark className="navbar-1-color" expand="lg">
+        <Navbar dark className="app-navbar navbar-1-color" expand="lg">
           <div className="nav-container">
             <NavbarBrand href="/">LOGO</NavbarBrand>
             <Nav className="mr-auto" navbar>
               <NavItem className="header-item">
-                <NavLink active>
+                <NavLink active href="/">
                   <img className="header-icon" src={Logo} alt="logo" />
                   League of Legends
                 </NavLink>

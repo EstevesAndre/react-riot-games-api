@@ -1,3 +1,9 @@
+.app-navbar {
+  height: 80px;
+  border-bottom: 2px solid rgba(68, 68, 68, 0.25);
+}
+
+/* FIRST */
 .navbar-1-color {
   background-color: #202327 !important;
 }
