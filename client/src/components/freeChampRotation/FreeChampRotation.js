@@ -85,7 +85,7 @@ const FreeChampRotation = () => {
             ) : (
               <div>
                 <img
-                  src={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
+                  src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
                   alt="name"
                 />
                 <ReactTooltip
@@ -113,7 +113,7 @@ const FreeChampRotation = () => {
               <div className="default-img"></div>
             ) : (
               <img
-                src={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
+                src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
                 alt="name"
               />
             )}

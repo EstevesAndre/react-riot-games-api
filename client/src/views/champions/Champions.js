@@ -17,7 +17,7 @@ const Champions = (props) => {
   useEffect(() => {
     axios
       .get(
-        "http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json"
+        "https://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json"
       )
       .then((res) => {
         Cookies.set("championCount", Object.keys(res.data.data).length);
@@ -56,7 +56,7 @@ const Champions = (props) => {
                   <img
                     data-tip
                     data-for={`champion${champ.key}tip`}
-                    src={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${champ["image"].full}`}
+                    src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${champ["image"].full}`}
                     alt="full-champion"
                   />
                   <br />

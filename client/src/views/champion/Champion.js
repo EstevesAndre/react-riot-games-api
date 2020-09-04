@@ -36,7 +36,7 @@ const Champion = (props) => {
 
     axios
       .get(
-        `http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion/${champCapitalized}.json`
+        `https://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion/${champCapitalized}.json`
       )
       .then((res) => {
         setChampion(res.data.data[champCapitalized]);
@@ -87,7 +87,7 @@ const ChampionInformation = (props) => {
       <div
         className="header mask-image-bg"
         style={{
-          background: `url(http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${
+          background: `url(https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${
             champion.id
           }_${champion.skins[champion.skins.length - 1].num}.jpg)`,
           backgroundSize: "cover",
@@ -100,7 +100,7 @@ const ChampionInformation = (props) => {
           <Col className="col-12 col-sm-3 offset-sm-1 col-lg-2 img-container">
             <img
               className="mx-2 champ-img"
-              src={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${champion["image"].full}`}
+              src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${champion["image"].full}`}
               alt="champion"
             />
           </Col>
@@ -171,7 +171,7 @@ const ChampionInformation = (props) => {
       </Tabs>
       {/* <div className="champion-img-container">
         <img
-          src={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${champion["image"].full}`}
+          src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${champion["image"].full}`}
         />
         <br />
         {champion.id}
@@ -398,7 +398,7 @@ const HabilitiesStatsTab = (props) => {
           <Card className="card-spells">
             <div className="spell-img-container mt-4">
               <CardImg
-                src={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/passive/${champion["passive"]["image"].full}`}
+                src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/passive/${champion["passive"]["image"].full}`}
                 alt="passive"
               />
               <span className="bottom-right-icon">P</span>
@@ -431,7 +431,7 @@ const HabilitiesStatsTab = (props) => {
                   <Col className="col-4 col-sm-3">
                     <div className="spell-img-container">
                       <CardImg
-                        src={`http://ddragon.leagueoflegends.com/cdn/10.16.1/img/spell/${spell.id}.png`}
+                        src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/spell/${spell.id}.png`}
                         alt={spell.id}
                       />
                       <div className="bottom-right-icon">
@@ -524,7 +524,7 @@ const SkinsTab = (props) => {
           {champion.skins.map((skin, index) => (
             <li key={index}>
               <Image
-                src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_${skin.num}.jpg`}
+                src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_${skin.num}.jpg`}
                 alt={skin.name}
               />
               <br />
