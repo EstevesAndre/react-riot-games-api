@@ -1,6 +1,137 @@
 .app-navbar {
+  flex-flow: row nowrap !important;
+  justify-content: flex-start !important;
+  padding: 0 !important;
   height: 80px;
-  border-bottom: 2px solid rgba(68, 68, 68, 0.25);
+}
+
+.app-navbar .navbar-nav .nav-item .nav-link {
+  height: 79px;
+}
+
+.app-navbar-color {
+  background-color: #111111;
+}
+
+.app-navbar .navbar-nav .nav-item .nav-link {
+  color: white;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 76px;
+  letter-spacing: 0.02em;
+  border-bottom: 3px solid transparent;
+  padding: 0rem 0.5rem;
+  margin: 0 0.85em;
+}
+
+.app-navbar .navbar-nav .nav-item .nav-link:hover,
+.app-navbar .navbar-nav .nav-item .nav-link.active {
+  color: white;
+  border-color: #d13639;
+}
+
+.drawer-button button {
+  color: white;
+  background-color: rgb(27, 27, 27);
+}
+
+.drawer-button button:hover,
+.drawer-button button:focus,
+.drawer-button button:active:focus,
+.drawer-button button:active {
+  color: white;
+  background-color: rgb(51, 51, 51);
+}
+
+.navbar-drawer .rs-drawer-header {
+  background-color: #111111;
+  margin: 0;
+  height: 80px;
+  padding-right: 2rem;
+}
+
+.navbar-drawer .rs-drawer-header .rs-drawer-header-close {
+  padding: 30px 2rem;
+  color: rgb(195, 195, 195);
+}
+
+.navbar-drawer .rs-drawer-header .rs-drawer-header-close:hover {
+  color: white;
+}
+
+.navbar-drawer .rs-drawer-header .rs-drawer-title {
+  color: white;
+  padding-left: 1rem;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 76px;
+  letter-spacing: 0.02em;
+}
+
+.rs-drawer-wrapper .rs-drawer-backdrop.in {
+  opacity: 0.3;
+}
+
+.navbar-drawer .rs-drawer-content {
+  background-color: #212121;
+}
+
+.navbar-drawer .drawer-link-list {
+  margin: 0;
+  height: auto !important;
+}
+
+.navbar-drawer .drawer-link-list a {
+  padding: 1rem 1rem;
+  display: block;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 16px;
+  text-decoration: none;
+  border-bottom: 1px solid #111111;
+}
+
+.navbar-drawer .drawer-link-list a:hover {
+  background-color: #1d1d1d;
+  border-color: #d13639;
+}
+
+.navbar-drawer.rs-drawer-right.rs-drawer-xs {
+  width: 320px;
+}
+
+@media (max-width: 991px) {
+  .nav-content-link {
+    display: none;
+  }
+
+  .app-navbar .navbar-nav {
+    flex-grow: 2;
+  }
+
+  .mobile-content-center {
+    color: white;
+  }
+}
+
+@media (min-width: 992px) {
+  .drawer-button,
+  .mobile-content-center {
+    display: none;
+  }
+}
+
+.nav-container {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-right: 2rem;
+  padding-left: 2rem;
 }
 
 /* FIRST */
@@ -79,16 +210,6 @@
     text-align: left;
     margin-left: 0.5rem;
   }
-}
-
-.nav-container {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding-right: 2rem;
-  padding-left: 2rem;
 }
 
 .navbar-with-search {
