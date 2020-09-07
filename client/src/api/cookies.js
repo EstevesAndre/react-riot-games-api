@@ -99,13 +99,14 @@ const getRecentSearches = () => {
 
   let ret = [];
 
-  if (!(recent === undefined)) {
+  if (recent !== undefined) {
     const splited = recent.split("%24");
 
     for (let i = 0; i < splited.length; i++) {
       ret.push({
         summoner: decodeURI(splited[i]),
-        isFavorite: favorite.includes(splited[i]),
+        isFavorite:
+          favorite === undefined ? false : favorite.includes(splited[i]),
       });
     }
   }
@@ -117,7 +118,7 @@ const getFavoriteSearches = () => {
   const favorite = Cookies.get("favoriteSearches");
 
   let ret = [];
-  if (!(favorite === undefined)) {
+  if (favorite !== undefined) {
     const splited = favorite.split("%24");
 
     for (let i = 0; i < splited.length; i++) {
