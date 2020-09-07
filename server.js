@@ -23,9 +23,8 @@ app.get("/api/greeting", (req, res) => {
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 });
 
-// app.get("/", (req, res) => {
-//   res.send("Hello World!");
-// });
+app.use("/api/riot", riotRouter);
+// app.use("/api", userRouter);
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
@@ -45,9 +44,6 @@ process.on("SIGINT", () => {
   console.log("Bye bye!");
   process.exit();
 });
-
-app.use("/api/riot", riotRouter);
-// app.use("/api", userRouter);
 
 app.listen(port, () =>
   console.log(`Express server is running on localhost:${port}`)
