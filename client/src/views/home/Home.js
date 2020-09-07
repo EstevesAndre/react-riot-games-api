@@ -58,8 +58,8 @@ const Home = (props) => {
   return (
     <div>
       <BaseNavbar {...props} noSearch />
-      <div className="one-page-plus-minus-nav-minus-footer">
-        <div className="half-page" style={bannerImg}>
+      <div className="one-page-plus">
+        <div className="home-page-banner" style={bannerImg}>
           <div className="middle">
             <h2 className="pb-4">OP.GG</h2>
             <SearchSummonerForm {...props} />
@@ -74,12 +74,12 @@ const Home = (props) => {
           timeout={3000} //3 secs
         /> */}
         <h1 className=""> HOME </h1>
-        <div> {userInfo !== null && userInfo.favorites} </div>
+        {/* <div> {userInfo !== null && userInfo.favorites} </div> */}
         {/* <div> {UID} </div> */}
         <div>{searchInfo !== null && searchInfo.summonerLevel}</div>
         <FreeChampRotation />
       </div>
-      <Footer />
+      <Footer {...props} />
     </div>
   );
 };

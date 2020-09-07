@@ -40,8 +40,16 @@ code {
   min-height: calc(100vh - 112px - 48px);
 }
 
+.one-page-minus-nav {
+  height: calc(100vh - 80px);
+}
+
 .half-page {
-  height: 60vh;
+  height: 50vh;
+}
+
+.home-page-banner {
+  height: 50vh;
 }
 
 .row {
