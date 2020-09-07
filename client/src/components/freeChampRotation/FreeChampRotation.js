@@ -9,7 +9,7 @@ const FreeChampRotation = () => {
   const [loading, setLoading] = useState(true);
   const [rotation, setRotation] = useState([
     1,
-    299,
+    2,
     3,
     4,
     5,
