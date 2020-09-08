@@ -74,7 +74,7 @@ const Champions = (props) => {
             </a>
           ))}
         </div>
-        <FreeChampRotation />
+        <FreeChampRotation {...props} />
       </div>
     </div>
   );

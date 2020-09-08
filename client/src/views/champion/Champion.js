@@ -16,7 +16,7 @@ import { Slider } from "rsuite";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import BaseNavbar from "../../components/navbar";
-// import { ImageGroup, Image } from "react-fullscreen-image";
+import { ImageGroup, Image } from "react-fullscreen-image";
 
 import "react-tabs/style/react-tabs.css";
 import "./Champion.css";
@@ -55,7 +55,7 @@ const Champion = (props) => {
 
   return (
     <div>
-      <BaseNavbar {...props} page={`champion/`} />
+      <BaseNavbar {...props} page={`champions`} />
       {!loading && (
         <div className="one-page-plus bg-1">
           {invalidChampion ? (
@@ -519,7 +519,7 @@ const SkinsTab = (props) => {
 
   return (
     <div className="images-container">
-      {/* <ImageGroup transitionMs="750">
+      <ImageGroup transitionMs="750">
         <ul className="images">
           {champion.skins.map((skin, index) => (
             <li key={index}>
@@ -534,7 +534,7 @@ const SkinsTab = (props) => {
             </li>
           ))}
         </ul>
-      </ImageGroup> */}
+      </ImageGroup>
     </div>
   );
 };
