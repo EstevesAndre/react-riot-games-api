@@ -70,22 +70,17 @@ const FreeChampRotation = (props) => {
   }, []);
 
   return (
-    <Grid fluid>
-      <Row>
-        <Col
-          xs={22}
-          xsOffset={1}
-          sm={20}
-          smOffset={2}
-          md={8}
-          mdOffset={3}
-          lg={6}
-          lgOffset={5}
-        >
+    <div>
+      {props.isHomePage ? (
+        <div className="mx-2">
           <div className="free-champs-title">
-            <h5>Free Champion Rotation</h5>
+            <h6>
+              Free Champion Rotation
+              <br />
+              <small>This week free to play champions</small>
+            </h6>
           </div>
-          <div className="free-champs-list">
+          <div className="free-champs-list home-page">
             {!loading &&
               rotation.map((item, index) => (
                 <a
@@ -115,22 +110,17 @@ const FreeChampRotation = (props) => {
                 </a>
               ))}
           </div>
-        </Col>
-        <Col
-          xs={22}
-          xsOffset={1}
-          sm={20}
-          smOffset={2}
-          md={8}
-          mdOffset={2}
-          lg={6}
-          lgOffset={2}
-        >
           <div className="free-champs-title">
-            <h5>Free Champion Rotation For New Players </h5>
-            <span>Level 1 to {maxNewPlayerLevel}</span>
+            <h6>
+              Free Champion Rotation For New Players
+              <br />
+              <small>
+                Free champions for players withing level 1 and{" "}
+                {maxNewPlayerLevel}
+              </small>
+            </h6>
           </div>
-          <div className="free-champs-list">
+          <div className="free-champs-list home-page">
             {!loading &&
               rotationNewPlayers.map((item, index) => (
                 <a
@@ -160,9 +150,113 @@ const FreeChampRotation = (props) => {
                 </a>
               ))}
           </div>
-        </Col>
-      </Row>
-    </Grid>
+        </div>
+      ) : (
+        <Grid fluid>
+          <Row>
+            <Col
+              xs={22}
+              xsOffset={1}
+              sm={20}
+              smOffset={2}
+              md={8}
+              mdOffset={3}
+              lg={6}
+              lgOffset={5}
+            >
+              <div className="free-champs-title">
+                <h6>
+                  Free Champion Rotation
+                  <br />
+                  <small>This week free to play champions</small>
+                </h6>
+              </div>
+              <div className="free-champs-list">
+                {!loading &&
+                  rotation.map((item, index) => (
+                    <a
+                      key={loading ? index : item.id}
+                      data-value={loading ? "" : item.name}
+                      data-tip={loading ? "future" : item.name}
+                      data-for={`champion${item.id}tip`}
+                      href={`/${props.match.params.lang}/${props.match.params.region}/champion/${item.name}`}
+                    >
+                      {loading ? (
+                        <div className="default-img"></div>
+                      ) : (
+                        <div>
+                          <img
+                            src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
+                            alt="name"
+                          />
+                          <ReactTooltip
+                            id={`champion${item.id}tip`}
+                            place="top"
+                            effect="solid"
+                          >
+                            {item.name}
+                          </ReactTooltip>
+                        </div>
+                      )}
+                    </a>
+                  ))}
+              </div>
+            </Col>
+            <Col
+              xs={22}
+              xsOffset={1}
+              sm={20}
+              smOffset={2}
+              md={8}
+              mdOffset={2}
+              lg={6}
+              lgOffset={2}
+            >
+              <div className="free-champs-title">
+                <h6>
+                  Free Champion Rotation For New Players
+                  <br />
+                  <small>
+                    Free champions for players withing level 1 and{" "}
+                    {maxNewPlayerLevel}
+                  </small>
+                </h6>
+              </div>
+              <div className="free-champs-list">
+                {!loading &&
+                  rotationNewPlayers.map((item, index) => (
+                    <a
+                      key={loading ? index : item.id}
+                      data-value={loading ? "" : item.name}
+                      data-tip={loading ? "future" : item.name}
+                      data-for={`champion${item.id}tip`}
+                      href={`/${props.match.params.lang}/${props.match.params.region}/champion/${item.name}`}
+                    >
+                      {loading ? (
+                        <div className="default-img"></div>
+                      ) : (
+                        <div>
+                          <img
+                            src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
+                            alt="name"
+                          />
+                          <ReactTooltip
+                            id={`champion${item.id}tip`}
+                            place="top"
+                            effect="solid"
+                          >
+                            {item.name}
+                          </ReactTooltip>
+                        </div>
+                      )}
+                    </a>
+                  ))}
+              </div>
+            </Col>
+          </Row>
+        </Grid>
+      )}
+    </div>
   );
 };
 

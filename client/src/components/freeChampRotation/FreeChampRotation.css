@@ -5,6 +5,10 @@
   align-items: flex-end;
 }
 
+.free-champs-list.home-page {
+  justify-content: center;
+}
+
 .free-champs-list a {
   padding: 0.2rem;
 }
@@ -17,6 +21,12 @@
   overflow: hidden;
 }
 
+.free-champs-list.home-page a img,
+.free-champs-list.home-page a .default-img {
+  width: 40px;
+  height: 40px;
+}
+
 .free-champs-list a .default-img {
   background-color: rgb(36, 36, 36);
 }
@@ -24,4 +34,10 @@
 .free-champs-title {
   margin-bottom: 1rem;
   margin-top: 1rem;
+}
+
+@media (max-width: 479px) {
+  .free-champs-list {
+    justify-content: center;
+  }
 }
