@@ -60,7 +60,7 @@ const Home = (props) => {
   return (
     <div>
       <BaseNavbar {...props} noSearch />
-      <div className="one-page-plus-minus-nav-minus-footer bg-1">
+      <div className="one-page-plus-minus-nav-minus-footer bg-1 pb-4">
         <div className="home-page-banner" style={bannerImg}>
           <div className="middle">
             <h2 className="pb-4">AppName</h2>
@@ -89,7 +89,33 @@ const Home = (props) => {
         {/* <div> {userInfo !== null && userInfo.favorites} </div> */}
         {/* <div> {UID} </div> */}
         {/* <div>{searchInfo !== null && searchInfo.summonerLevel}</div> */}
-        <FreeChampRotation {...props} />
+        <Grid fluid>
+          <Row>
+            <Col
+              xs={20}
+              xsOffset={2}
+              sm={10}
+              smOffset={2}
+              md={12}
+              lg={8}
+              lgOffset={4}
+            >
+              1
+            </Col>
+            <Col
+              xs={20}
+              xsOffset={2}
+              sm={11}
+              smOffset={0}
+              md={8}
+              mdOffset={1}
+              lg={7}
+              lgOffset={4}
+            >
+              <FreeChampRotation {...props} isHomePage={true} />
+            </Col>
+          </Row>
+        </Grid>
       </div>
       <Footer {...props} />
     </div>
