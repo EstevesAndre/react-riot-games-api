@@ -33,11 +33,11 @@ code {
 }
 
 .one-page-plus {
-  min-height: 100%;
+  min-height: 100vh;
 }
 
 .one-page-plus-minus-nav-minus-footer {
-  min-height: calc(100vh - 112px - 48px);
+  min-height: calc(100vh - 80px - 126px);
 }
 
 .one-page-minus-nav {
@@ -49,7 +49,7 @@ code {
 }
 
 .home-page-banner {
-  height: 50vh;
+  height: 40vh;
 }
 
 .row {
@@ -58,10 +58,11 @@ code {
 }
 
 .bg-1 {
-  /* background: rgb(0, 0, 0);
-  background: radial-gradient(
+  background: rgb(31, 31, 31);
+  color: rgb(235, 235, 235);
+  /* background: radial-gradient(
     circle,
-    rgba(0, 0, 0, 1) 0%,
+    rgb(31, 31, 31) 0%,
     rgba(50, 50, 50, 1) 100%
   ); */
 }

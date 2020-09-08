@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Cookies from "js-cookie";
-import cookiesApi from "../../api/cookies";
+// import Cookies from "js-cookie";
+// import cookiesApi from "../../api/cookies";
 // import api from "../../api";
 // import Loader from "react-loader-spinner";
 import "whatwg-fetch";
+
+import { Grid, Row, Col } from "rsuite";
 
 import BaseNavbar from "../../components/navbar";
 import Footer from "../../components/footer";
@@ -21,7 +23,7 @@ const bannerImg = {
 };
 
 const Home = (props) => {
-  const [userInfo, setUserInfo] = useState(null);
+  // const [userInfo, setUserInfo] = useState(null);
   // const [UID, setUID] = useState(Cookies.get("UID"));
   const [searchInfo, setSearchInfo] = useState(null);
 
@@ -58,13 +60,23 @@ const Home = (props) => {
   return (
     <div>
       <BaseNavbar {...props} noSearch />
-      <div className="one-page-plus">
+      <div className="one-page-plus-minus-nav-minus-footer bg-1">
         <div className="home-page-banner" style={bannerImg}>
           <div className="middle">
-            <h2 className="pb-4">OP.GG</h2>
+            <h2 className="pb-4">AppName</h2>
             <SearchSummonerForm {...props} />
           </div>
         </div>
+        {/* <Grid fluid>
+          <Row>
+            <Col xs={20} xsOffset={2} md={8} mdOffset={4}>
+              LOL status
+            </Col>
+            <Col xs={20} md={8}>
+              TFT status
+            </Col>
+          </Row>
+        </Grid> */}
         {/* <Loader
           className="my-5"
           type="ThreeDots"
@@ -73,11 +85,11 @@ const Home = (props) => {
           width={200}
           timeout={3000} //3 secs
         /> */}
-        <h1 className=""> HOME </h1>
+        {/* <h1 className=""> HOME </h1> */}
         {/* <div> {userInfo !== null && userInfo.favorites} </div> */}
         {/* <div> {UID} </div> */}
-        <div>{searchInfo !== null && searchInfo.summonerLevel}</div>
-        <FreeChampRotation />
+        {/* <div>{searchInfo !== null && searchInfo.summonerLevel}</div> */}
+        <FreeChampRotation {...props} />
       </div>
       <Footer {...props} />
     </div>
