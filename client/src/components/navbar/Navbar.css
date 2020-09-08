@@ -103,6 +103,10 @@
   width: 320px;
 }
 
+.navbar-brand {
+  width: 32px;
+}
+
 @media (max-width: 991px) {
   .nav-content-link {
     display: none;
@@ -146,10 +150,6 @@
 .menu-dropdown img {
   height: 25px;
   margin-right: 6px;
-}
-
-.header-item .header-icon {
-  width: 20px;
 }
 
 .header-item a {

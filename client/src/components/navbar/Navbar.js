@@ -18,7 +18,7 @@ const BaseNavbar = (props) => {
         <Navbar dark className="app-navbar app-navbar-color" expand="lg">
           <div className="nav-container">
             <NavbarBrand href="/">
-              <img className="header-icon" src={Logo} alt="logo" />
+              <img src={Logo} alt="logo" />
             </NavbarBrand>
             <Nav className="mr-auto" navbar>
               <NavItem className="mobile-content-center">ICON</NavItem>
