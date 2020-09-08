@@ -10,7 +10,7 @@ const FreeChampRotation = (props) => {
   const [loading, setLoading] = useState(true);
   const [rotation, setRotation] = useState([
     1,
-    2,
+    299,
     3,
     4,
     5,
@@ -26,16 +26,16 @@ const FreeChampRotation = (props) => {
     15,
   ]);
   const [rotationNewPlayers, setRotationNewPlayers] = useState([
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
   ]);
   const [maxNewPlayerLevel, setMaxNewPlayerLevel] = useState(10);
 
@@ -51,7 +51,7 @@ const FreeChampRotation = (props) => {
     rot = [];
     for (let i = 0; i < info.freeChampionIdsForNewPlayers.length; i++) {
       rot.push({
-        id: info.freeChampionIds[i],
+        id: info.freeChampionIdsForNewPlayers[i],
         name: champions[info.freeChampionIdsForNewPlayers[i]],
       });
     }
@@ -69,7 +69,6 @@ const FreeChampRotation = (props) => {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(props);
   return (
     <Grid fluid>
       <Row>
@@ -87,33 +86,34 @@ const FreeChampRotation = (props) => {
             <h5>Free Champion Rotation</h5>
           </div>
           <div className="free-champs-list">
-            {rotation.map((item, index) => (
-              <a
-                key={loading ? index : item.id}
-                data-value={loading ? "" : item.name}
-                data-tip={loading ? "future" : item.name}
-                data-for={`champion${item.id}tip`}
-                href={`/${props.match.params.lang}/${props.match.params.region}/champion/${item.name}`}
-              >
-                {loading ? (
-                  <div className="default-img"></div>
-                ) : (
-                  <div>
-                    <img
-                      src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
-                      alt="name"
-                    />
-                    <ReactTooltip
-                      id={`champion${item.id}tip`}
-                      place="top"
-                      effect="solid"
-                    >
-                      {item.name}
-                    </ReactTooltip>
-                  </div>
-                )}
-              </a>
-            ))}
+            {!loading &&
+              rotation.map((item, index) => (
+                <a
+                  key={loading ? index : item.id}
+                  data-value={loading ? "" : item.name}
+                  data-tip={loading ? "future" : item.name}
+                  data-for={`champion${item.id}tip`}
+                  href={`/${props.match.params.lang}/${props.match.params.region}/champion/${item.name}`}
+                >
+                  {loading ? (
+                    <div className="default-img"></div>
+                  ) : (
+                    <div>
+                      <img
+                        src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
+                        alt="name"
+                      />
+                      <ReactTooltip
+                        id={`champion${item.id}tip`}
+                        place="top"
+                        effect="solid"
+                      >
+                        {item.name}
+                      </ReactTooltip>
+                    </div>
+                  )}
+                </a>
+              ))}
           </div>
         </Col>
         <Col
@@ -131,33 +131,34 @@ const FreeChampRotation = (props) => {
             <span>Level 1 to {maxNewPlayerLevel}</span>
           </div>
           <div className="free-champs-list">
-            {rotationNewPlayers.map((item, index) => (
-              <a
-                key={loading ? index : item.id}
-                data-value={loading ? "" : item.name}
-                data-tip={loading ? "future" : item.name}
-                data-for={`champion${item.id}tip`}
-                href={`/${props.match.params.lang}/${props.match.params.region}/champion/${item.name}`}
-              >
-                {loading ? (
-                  <div className="default-img"></div>
-                ) : (
-                  <div>
-                    <img
-                      src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
-                      alt="name"
-                    />
-                    <ReactTooltip
-                      id={`champion${item.id}tip`}
-                      place="top"
-                      effect="solid"
-                    >
-                      {item.name}
-                    </ReactTooltip>
-                  </div>
-                )}
-              </a>
-            ))}
+            {!loading &&
+              rotationNewPlayers.map((item, index) => (
+                <a
+                  key={loading ? index : item.id}
+                  data-value={loading ? "" : item.name}
+                  data-tip={loading ? "future" : item.name}
+                  data-for={`champion${item.id}tip`}
+                  href={`/${props.match.params.lang}/${props.match.params.region}/champion/${item.name}`}
+                >
+                  {loading ? (
+                    <div className="default-img"></div>
+                  ) : (
+                    <div>
+                      <img
+                        src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
+                        alt="name"
+                      />
+                      <ReactTooltip
+                        id={`champion${item.id}tip`}
+                        place="top"
+                        effect="solid"
+                      >
+                        {item.name}
+                      </ReactTooltip>
+                    </div>
+                  )}
+                </a>
+              ))}
           </div>
         </Col>
       </Row>
