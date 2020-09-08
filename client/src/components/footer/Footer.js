@@ -89,9 +89,14 @@ const Footer = (props) => {
           </Col>
         </Row>
         <Row>
-          <Col xs={4} xsOffset={1} className="mt-2 mb-2 text-left language-container">
+          <Col
+            xs={20}
+            xsOffset={1}
+            mdOffset={2}
+            className="mt-2 mb-3 text-left language-container"
+          >
             <img src={Globe} alt="Logo" />
-            <div onClick={() => setLanguageModal(true)}>English</div>
+            <div onClick={() => setLanguageModal(true)}>English +</div>
           </Col>
         </Row>
       </Grid>

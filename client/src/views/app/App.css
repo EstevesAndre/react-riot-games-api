@@ -37,7 +37,7 @@ code {
 }
 
 .one-page-plus-minus-nav-minus-footer {
-  min-height: calc(100vh - 80px - 126px);
+  min-height: calc(100vh - 80px - 134px);
 }
 
 .one-page-minus-nav {
@@ -58,7 +58,7 @@ code {
 }
 
 .bg-1 {
-  background: rgb(31, 31, 31);
+  background: #13191f;
   color: rgb(235, 235, 235);
   /* background: radial-gradient(
     circle,
