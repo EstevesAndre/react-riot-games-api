@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Switch from "react-switch";
 import Cookies from "js-cookie";
 
@@ -18,11 +18,12 @@ import Globe from "../../assets/earth.svg";
 import "./Footer.css";
 
 const Footer = (props) => {
+  const [firstLoad, setFirstLoad] = useState(true);
+  const [region, setRegion] = useState(props.match.params.region || "EUW");
   const [darkModeSwitchChecked, setDarkModeSwitchChecked] = useState(
     Cookies.get("dark") === "true" ? true : false
   );
   const [languageModal, setLanguageModal] = useState(false);
-  const [language, setLanguage] = useState(props.match.params.lang || "en");
   const languages = [
     {
       id: 0,
@@ -31,30 +32,53 @@ const Footer = (props) => {
     },
     {
       id: 1,
-      name: "French",
+      name: "Français",
       paramCode: "fr",
     },
     {
       id: 2,
-      name: "Spanish",
+      name: "Español",
       paramCode: "es",
     },
     {
       id: 3,
-      name: "Portuguese",
+      name: "Português",
       paramCode: "pt",
     },
-    {
-      id: 4,
-      name: "Korea",
-      paramCode: "kr",
-    },
   ];
+  const [language, setLanguage] = useState(
+    languages.filter((l) => l.paramCode === props.match.params.lang).length !==
+      0
+      ? languages.filter((l) => l.paramCode === props.match.params.lang)[0]
+      : languages[0]
+  );
 
-  const switchDarkMode = () => {
-    Cookies.set("dark", darkModeSwitchChecked ? false : true);
-    setDarkModeSwitchChecked(!darkModeSwitchChecked);
+  const updateLanguage = (lang) => {
+    if (lang.paramCode !== language) {
+      setLanguage(lang);
+    }
+    setLanguageModal(false);
   };
+
+  useEffect(() => {
+    console.log(props);
+    if (!firstLoad) {
+      console.log("LANG: " + language.paramCode);
+      console.log("REGION: " + region);
+      Cookies.set("Language", language.paramCode);
+      Cookies.set("Region", region);
+      props.page
+        ? props.history.push(`/${language.paramCode}/${region}/${props.page}`)
+        : props.history.push(`/${language.paramCode}/${region}`);
+    } else {
+      setFirstLoad(false);
+    }
+  }, [language]);
+
+  // const switchDarkMode = () => {
+  //   Cookies.set("dark", darkModeSwitchChecked ? false : true);
+  //   setDarkModeSwitchChecked(!darkModeSwitchChecked);
+  // };
 
   return (
     <footer>
@@ -62,7 +86,9 @@ const Footer = (props) => {
         <Row className="py-4">
           <Col xs={20} xsOffset={2} sm={20} smOffset={2} md={18} mdOffset={2}>
             <div className="col-inner">
-              <div className="logo">LOGO</div>
+              <div className="logo">
+                <img src={Logo} alt="logo" />
+              </div>
               <ul className="list-unstyled list--inline useful-links-list">
                 <li>
                   <a href="/">Multi-Search</a>
@@ -96,10 +122,31 @@ const Footer = (props) => {
             className="mt-2 mb-3 text-left language-container"
           >
             <img src={Globe} alt="Logo" />
-            <div onClick={() => setLanguageModal(true)}>English +</div>
+            <div onClick={() => setLanguageModal(true)}>{language.name} +</div>
           </Col>
         </Row>
       </Grid>
+      <Modal
+        size="xs"
+        overflow={true}
+        show={languageModal}
+        className="show"
+        onHide={() => setLanguageModal(false)}
+      >
+        <Modal.Header>
+          <Modal.Title>Language Selector</Modal.Title>
+          <div className="subtitle">Select your language</div>
+        </Modal.Header>
+        <Modal.Body>
+          <ul className="list-unstyled list--inline language-links-list">
+            {languages.map((language) => (
+              <li key={language.id}>
+                <a onClick={() => updateLanguage(language)}>{language.name}</a>
+              </li>
+            ))}
+          </ul>
+        </Modal.Body>
+      </Modal>
       {/* <Switch
         onChange={() => switchDarkMode()}
         checked={darkModeSwitchChecked}
@@ -132,34 +179,6 @@ const Footer = (props) => {
       <ButtonToolbar>
         <Button onClick={() => setLanguageModal(true)}>Open</Button>
       </ButtonToolbar> */}
-      <Modal
-        size="xs"
-        overflow={true}
-        show={languageModal}
-        className="show"
-        onHide={() => setLanguageModal(false)}
-      >
-        <Modal.Header>
-          <Modal.Title>Language Selector</Modal.Title>
-          <div className="subtitle">Select your language</div>
-        </Modal.Header>
-        <Modal.Body>
-          <ul className="list-unstyled list--inline useful-links-list">
-            <li>
-              <a href="/">Multi-Search</a>
-            </li>
-            <li>
-              <a href="/">Terms of Service</a>
-            </li>
-            <li>
-              <a href="/">Contact Us</a>
-            </li>
-            <li>
-              <a href="/">Privacy</a>
-            </li>
-          </ul>
-        </Modal.Body>
-      </Modal>
     </footer>
   );
 };

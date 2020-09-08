@@ -51,8 +51,7 @@ footer {
 }
 
 .rs-modal-wrapper {
-  bottom: 60vh;
-  top: auto;
+  top: 20vh;
 }
 
 .rs-modal-content {
@@ -61,6 +60,39 @@ footer {
 
 .rs-modal-header .rs-modal-title {
   color: black;
+  text-align: center;
+  font-size: 1.7rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-top: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.rs-modal-header .subtitle {
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 0.2rem;
+  letter-spacing: 0.02em;
+}
+
+.language-links-list {
+  text-align: center;
+}
+
+.language-links-list li {
+  padding: 0.5rem 0rem;
+}
+
+.language-links-list a {
+  color: rgb(22, 2, 2);
+}
+
+.language-links-list a:hover {
+  text-decoration: none;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  border-bottom: 1px solid red;
 }
 
 .language-container div:hover,
