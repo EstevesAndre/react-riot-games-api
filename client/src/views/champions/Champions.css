@@ -8,11 +8,11 @@
 
 .champs-list a {
   padding: 0.5rem 0.2rem;
-  color: rgb(36, 5, 5);
+  color: inherit;
 }
 
 .champs-list a:hover {
-  color: saddlebrown;
+  color: #d13639;
   text-decoration: none;
 }
 
@@ -32,6 +32,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  border: 1px solid #d13639;
   overflow: hidden;
 }
 
