@@ -13,19 +13,9 @@
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7));
 }
 
-@media (max-width: 567px) {
-  .champion-page .header {
-    padding: 45% 0px !important;
-  }
-}
-
 .champion-page .main-stats {
   align-self: flex-end;
-  margin-bottom: 1rem;
-}
-
-.champion-page .main-stats p {
-  text-transform: capitalize;
+  text-align: left;
 }
 
 .champion-page .info-stats {
@@ -35,6 +25,35 @@
   max-width: 175px;
 }
 
+@media (max-width: 567px) {
+  .champion-page .header {
+    padding: 45% 0px !important;
+  }
+
+  .champion-page .main-stats {
+    align-items: center;
+    text-align: center;
+  }
+
+  .champion-page .info-stats {
+    justify-content: space-around;
+    max-width: none;
+  }
+}
+
+.main-stats .badge-c {
+  background-color: #d13639;
+}
+
+.stat-container ::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+}
+
+.champion-page .main-stats p {
+  text-transform: capitalize;
+}
+
 .champion-page .info-badge {
   width: auto;
   border-radius: 5px;
@@ -42,28 +61,38 @@
 }
 
 .champion-page .info-badge * {
-  width: 2.2rem;
+  width: 2.3rem;
   text-align: center;
   font-size: 0.75rem;
   padding: 0px 0px;
 }
 
-.champion-page .info-badge div:first-child.c-ad {
-  background-color: rgb(255, 56, 56);
+.champion-page .info-badge div:first-child.clr-ad {
+  background-color: rgb(255, 86, 56);
 }
-.champion-page .info-badge div:first-child.c-ap {
-  background-color: rgb(56, 103, 255);
+.champion-page .info-badge div:first-child.clr-ap {
+  background-color: rgb(83, 183, 223);
 }
-.champion-page .info-badge div:first-child.c-def {
+.champion-page .info-badge div:first-child.clr-def {
   background-color: rgb(67, 151, 34);
 }
-.champion-page .info-badge div:first-child.c-dif {
+.champion-page .info-badge div:first-child.clr-dif {
   background-color: rgb(165, 56, 255);
 }
 
+.champion-page .info-badge div:first-child,
 .champion-page .info-badge div:last-child {
-  background-color: white;
-  color: black;
+  border: 1px solid rgb(149, 149, 149);
+}
+
+.champion-page .info-badge div:first-child {
+  border-bottom: none;
+}
+
+.champion-page .info-badge div:last-child {
+  background-color: rgb(10, 7, 7);
+  border-top: none;
+  color: white;
 }
 
 .skins-tab .col {
@@ -192,6 +221,7 @@ div.fullscreen-group::before {
   width: 20px;
   bottom: 0;
   right: 0;
+  text-align: center;
   background-color: rgb(0, 0, 0, 0.5);
   border-bottom-right-radius: 0.25rem;
 }
@@ -203,6 +233,7 @@ div.fullscreen-group::before {
 
 .habilities-pannel .card-spells {
   background-color: rgba(36, 38, 66, 0.287);
+  /* background-color: #0e0e0e3b; */
 }
 
 .card-spells {
@@ -211,11 +242,11 @@ div.fullscreen-group::before {
 
 .card-subtitle {
   font-size: 0.8rem;
-  color: rgb(0, 0, 0, 0.7);
+  color: rgba(214, 214, 214, 0.7);
 }
 
 spellpassive {
-  color: rgb(75, 75, 37);
+  color: rgb(116, 116, 116);
   font-weight: bold;
 }
 
@@ -254,6 +285,18 @@ spellpassive {
   border-bottom-right-radius: 0.25rem;
 }
 
+.stats-container .stat-container:nth-child(odd) .row * {
+  background-color: #1d252e;
+}
+
+.stats-container .stat-container:nth-child(even) .row * {
+  background-color: #13181f;
+}
+
+.stats-container .stat-container:nth-child(2) .row * {
+  background-color: #090c0f;
+}
+
 .stats-container .row .col .rs-slider {
   margin-bottom: 0;
   height: 12px;
@@ -282,4 +325,35 @@ spellpassive {
 
 .rs-slider-graduator {
   font-size: 12px;
+  background-color: rgb(54, 54, 54);
+}
+
+.rs-slider-graduator > ul > li.rs-slider-pass:before {
+  border-color: black;
+}
+
+.rs-slider-graduator > ul > li:before,
+.rs-slider-graduator > ul > li:last-child:after {
+  top: 1px;
+  border: inherit;
+}
+
+.stats-container .row .col .rs-slider-progress-bar {
+  background-color: rgb(12, 11, 11);
+}
+
+.champion-page ul .react-tabs__tab {
+  color: rgb(190, 190, 190);
+}
+
+.champion-page ul .react-tabs__tab.react-tabs__tab--selected {
+  color: white;
+  background-color: #111111;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 300px);
 }

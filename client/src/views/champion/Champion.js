@@ -13,10 +13,13 @@ import {
   CardSubtitle,
 } from "reactstrap";
 import { Slider } from "rsuite";
+import Loader from "react-loader-spinner";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import BaseNavbar from "../../components/navbar";
 import { ImageGroup, Image } from "react-fullscreen-image";
+
+import Footer from "../../components/footer";
 
 import "react-tabs/style/react-tabs.css";
 import "./Champion.css";
@@ -25,6 +28,9 @@ const Champion = (props) => {
   const [loading, setLoading] = useState(true);
   const [invalidChampion, setInvalidChampion] = useState(false);
   const [champion, setChampion] = useState(null);
+  const [championCapitalized, setChampionCapitalized] = useState(
+    props.match.params.champion
+  );
 
   useEffect(() => {
     const champ = props.match.params.champion || "";
@@ -33,7 +39,7 @@ const Champion = (props) => {
       return;
     }
     const champCapitalized = champ.charAt(0).toUpperCase() + champ.slice(1);
-
+    setChampionCapitalized(champCapitalized);
     axios
       .get(
         `https://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion/${champCapitalized}.json`
@@ -56,15 +62,19 @@ const Champion = (props) => {
   return (
     <div>
       <BaseNavbar {...props} page={`champions`} />
-      {!loading && (
-        <div className="one-page-plus bg-1">
-          {invalidChampion ? (
-            <InvalidChampion />
-          ) : (
-            <ChampionInformation {...props} champion={champion} />
-          )}
-        </div>
-      )}
+      <div className="one-page-plus-minus-nav-minus-footer text-white">
+        {loading ? (
+          <div className="loader-container">
+            <Loader type="ThreeDots" color="#d13639" height={100} width={100} />
+          </div>
+        ) : invalidChampion ? (
+          <InvalidChampion />
+        ) : (
+          <ChampionInformation {...props} champion={champion} />
+        )}
+      </div>
+
+      <Footer {...props} page={`champion/${championCapitalized}`} />
     </div>
   );
 };
@@ -104,12 +114,12 @@ const ChampionInformation = (props) => {
               alt="champion"
             />
           </Col>
-          <Col className="col-12 col-sm-6 text-left main-stats">
+          <Col className="col-12 col-sm-6 main-stats">
             <h3>{champion.name}</h3>
             <p>{champion.title}</p>
             <div>
               {champion.tags.map((tag, index) => (
-                <Badge key={index} className="mr-2" color="primary">
+                <Badge key={index} className="mr-2 badge-c">
                   {tag}
                 </Badge>
               ))}
@@ -119,32 +129,32 @@ const ChampionInformation = (props) => {
                 id="AD"
                 name="Attack"
                 value={champion["info"].attack}
-                color="c-ad"
+                color="clr-ad"
               />
               <InfoBadge
                 id="AP"
                 name="Magic"
                 value={champion["info"].magic}
-                color="c-ap"
+                color="clr-ap"
               />
               <InfoBadge
                 id="DEF"
                 name="Defense"
                 value={champion["info"].defense}
-                color="c-def"
+                color="clr-def"
               />
               <InfoBadge
                 id="DIF"
                 name="Difficulty"
                 value={champion["info"].difficulty}
-                color="c-dif"
+                color="clr-dif"
               />
             </div>
           </Col>
         </Row>
       </div>
 
-      <Tabs>
+      <Tabs className="mt-4">
         <TabList>
           <Tab>Overview</Tab>
           <Tab>Habilites & Stats</Tab>
@@ -422,7 +432,7 @@ const HabilitiesStatsTab = (props) => {
             key={index}
             className={
               "my-2 col-12 col-sm-6 col-lg-5 col-xl-3 " +
-              (index % 2 ? "" : "offset-lg-1 offset-xl-0")
+              (index % 2 ? "" : "offset-lg-1 offset-xl-3")
             }
           >
             <Card className="card-spells">
@@ -470,10 +480,12 @@ const HabilitiesStatsTab = (props) => {
           </Col>
         ))}
       </Row>
-      <small className="speel-note">
-        Note: "?" indicates data not provided by Riot API. Check values in
-        League of Legends Client.
-      </small>
+      <div className="pb-5">
+        <small>
+          Note: "?" indicates data not provided by Riot API. Check values in
+          League of Legends Client.
+        </small>
+      </div>
     </div>
   );
 };
@@ -481,17 +493,9 @@ const HabilitiesStatsTab = (props) => {
 const SpellsTab = (props) => {
   return (
     <div className="panel-def-size">
-      <p>
-        <b>Mario</b> (<i>Japanese: マリオ Hepburn: Mario, [ma.ɾʲi.o]</i>) (
-        <i>English: /ˈmɑːrioʊ/; Italian: [ˈmaːrjo]</i>) is a fictional character
-        in the Mario video game franchise, owned by Nintendo and created by
-        Japanese video game designer Shigeru Miyamoto. Serving as the company's
-        mascot and the eponymous protagonist of the series, Mario has appeared
-        in over 200 video games since his creation. Depicted as a short, pudgy,
-        Italian plumber who resides in the Mushroom Kingdom, his adventures
-        generally center upon rescuing Princess Peach from the Koopa villain
-        Bowser. His younger brother and sidekick is Luigi.
-      </p>
+      <h1>
+        <b>TODO</b>
+      </h1>
     </div>
   );
 };
@@ -499,17 +503,9 @@ const SpellsTab = (props) => {
 const RunesTab = (props) => {
   return (
     <div className="panel-def-size">
-      <p>
-        <b>Mario</b> (<i>Japanese: マリオ Hepburn: Mario, [ma.ɾʲi.o]</i>) (
-        <i>English: /ˈmɑːrioʊ/; Italian: [ˈmaːrjo]</i>) is a fictional character
-        in the Mario video game franchise, owned by Nintendo and created by
-        Japanese video game designer Shigeru Miyamoto. Serving as the company's
-        mascot and the eponymous protagonist of the series, Mario has appeared
-        in over 200 video games since his creation. Depicted as a short, pudgy,
-        Italian plumber who resides in the Mushroom Kingdom, his adventures
-        generally center upon rescuing Princess Peach from the Koopa villain
-        Bowser. His younger brother and sidekick is Luigi.
-      </p>
+      <h1>
+        <b>TODO</b>
+      </h1>
     </div>
   );
 };
@@ -518,7 +514,7 @@ const SkinsTab = (props) => {
   const { champion } = props;
 
   return (
-    <div className="images-container">
+    <div className="images-container half-page-plus">
       <ImageGroup transitionMs="750">
         <ul className="images">
           {champion.skins.map((skin, index) => (
