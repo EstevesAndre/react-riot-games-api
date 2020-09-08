@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #13191f !important;
+  color: white;
 }
 
 code {
@@ -13,6 +15,7 @@ code {
 }
 
 .App {
+  background-color: #13191f;
   text-align: center;
 }
 
@@ -36,8 +39,12 @@ code {
   min-height: 100vh;
 }
 
+.half-page-plus {
+  min-height: 50vh;
+}
+
 .one-page-plus-minus-nav-minus-footer {
-  min-height: calc(100vh - 80px - 134px);
+  min-height: calc(100vh - 80px - 135px);
 }
 
 .one-page-minus-nav {
@@ -74,4 +81,24 @@ code {
     rgba(0, 87, 116, 1) 0%,
     rgba(46, 46, 46, 1) 100%
   );
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #111111;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px !important;
+  background: rgba(209, 54, 57, 0.7);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(209, 54, 57, 0.4);
 }
