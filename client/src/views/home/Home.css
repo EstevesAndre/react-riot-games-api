@@ -7,6 +7,11 @@
   flex-direction: column;
 }
 
+.placeholder-container.rs-placeholder-active div p,
+.placeholder-container .rs-placeholder-paragraph-graph-image {
+  background: linear-gradient(-45deg, #1a3146 25%, #d13639 37%, #1a3146 63%);
+}
+
 .middle > * {
   width: 50%;
 }

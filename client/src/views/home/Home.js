@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 // import Loader from "react-loader-spinner";
 import "whatwg-fetch";
 
-import { Grid, Row, Col } from "rsuite";
+import { Placeholder, Grid, Row, Col } from "rsuite";
 
 import BaseNavbar from "../../components/navbar";
 import Footer from "../../components/footer";
@@ -21,6 +21,8 @@ const bannerImg = {
   background: `url(${bannerBackground}) no-repeat center center `,
   backgroundSize: "cover",
 };
+
+const { Paragraph } = Placeholder;
 
 const Home = (props) => {
   // const [userInfo, setUserInfo] = useState(null);
@@ -100,7 +102,13 @@ const Home = (props) => {
               lg={8}
               lgOffset={4}
             >
-              1
+              <Paragraph
+                style={{ marginTop: 30 }}
+                rows={9}
+                className="placeholder-container"
+                graph="image"
+                active
+              />
             </Col>
             <Col
               xs={20}
