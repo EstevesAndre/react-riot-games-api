@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import Switch from "react-switch";
+// import Switch from "react-switch";
 import Cookies from "js-cookie";
 
 // reactstrap components
-import {
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
+// import {
+//   UncontrolledDropdown,
+//   DropdownToggle,
+//   DropdownMenu,
+//   DropdownItem,
+// } from "reactstrap";
 
-import { Modal, Grid, Row, Col, Button, ButtonToolbar } from "rsuite";
+import { Modal, Grid, Row, Col } from "rsuite";
 
 import Logo from "../../assets/league_logo.svg";
 import Globe from "../../assets/earth.svg";
@@ -19,10 +19,10 @@ import "./Footer.css";
 
 const Footer = (props) => {
   const [firstLoad, setFirstLoad] = useState(true);
-  const [region, setRegion] = useState(props.match.params.region || "EUW");
-  const [darkModeSwitchChecked, setDarkModeSwitchChecked] = useState(
-    Cookies.get("dark") === "true" ? true : false
-  );
+  const region = useState(props.match.params.region || "EUW");
+  // const [darkModeSwitchChecked, setDarkModeSwitchChecked] = useState(
+  //   Cookies.get("dark") === "true" ? true : false
+  // );
   const [languageModal, setLanguageModal] = useState(false);
   const languages = [
     {

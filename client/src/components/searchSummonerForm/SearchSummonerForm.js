@@ -14,7 +14,7 @@ import {
   TabPane,
 } from "reactstrap";
 
-import { Button as Button2, ButtonGroup, ButtonToolbar, Icon } from "rsuite";
+import { Button as Button2, ButtonGroup, Icon } from "rsuite";
 
 import cookiesApi from "../../api/cookies";
 

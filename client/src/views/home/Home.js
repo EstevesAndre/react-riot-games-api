@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 // import Cookies from "js-cookie";
 // import cookiesApi from "../../api/cookies";
 // import api from "../../api";
@@ -25,40 +25,6 @@ const bannerImg = {
 const { Paragraph } = Placeholder;
 
 const Home = (props) => {
-  // const [userInfo, setUserInfo] = useState(null);
-  // const [UID, setUID] = useState(Cookies.get("UID"));
-  const [searchInfo, setSearchInfo] = useState(null);
-
-  const testRequestToRiotAPI = () => {
-    fetch(`/api/riot/summoner/${encodeURI("ßandlε Guηnεr")}`)
-      .then((response) => response.json())
-      .then((text) => {
-        setSearchInfo(text);
-        console.log(text);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const response = await api.getUserById(UID);
-  //     console.log(response.data.data);
-  //     setUserInfo(response.data.data);
-  //   }
-
-  //   if (UID) {
-  //     fetchData();
-  //   } else {
-  //     const responseUID = cookiesApi.createNewUser();
-  //     setUID(responseUID);
-  //   }
-
-  // }, [UID]);
-
-  useEffect(() => {
-    testRequestToRiotAPI();
-  }, []);
-
   return (
     <div>
       <BaseNavbar {...props} noSearch />
@@ -69,28 +35,6 @@ const Home = (props) => {
             <SearchSummonerForm {...props} />
           </div>
         </div>
-        {/* <Grid fluid>
-          <Row>
-            <Col xs={20} xsOffset={2} md={8} mdOffset={4}>
-              LOL status
-            </Col>
-            <Col xs={20} md={8}>
-              TFT status
-            </Col>
-          </Row>
-        </Grid> */}
-        {/* <Loader
-          className="my-5"
-          type="ThreeDots"
-          color="#00BFFF"
-          height={200}
-          width={200}
-          timeout={3000} //3 secs
-        /> */}
-        {/* <h1 className=""> HOME </h1> */}
-        {/* <div> {userInfo !== null && userInfo.favorites} </div> */}
-        {/* <div> {UID} </div> */}
-        {/* <div>{searchInfo !== null && searchInfo.summonerLevel}</div> */}
         <Grid fluid>
           <Row>
             <Col
