@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
+import { ddragonVersion } from "../../constants";
 import { Grid, Row, Col } from "rsuite";
 
 import champions from "../../assets/riot/championIds.json";
@@ -95,7 +96,7 @@ const FreeChampRotation = (props) => {
                   ) : (
                     <div>
                       <img
-                        src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
+                        src={`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/champion/${item.name}.png`}
                         alt="name"
                       />
                       <ReactTooltip
@@ -135,7 +136,7 @@ const FreeChampRotation = (props) => {
                   ) : (
                     <div>
                       <img
-                        src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
+                        src={`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/champion/${item.name}.png`}
                         alt="name"
                       />
                       <ReactTooltip
@@ -186,7 +187,7 @@ const FreeChampRotation = (props) => {
                       ) : (
                         <div>
                           <img
-                            src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
+                            src={`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/champion/${item.name}.png`}
                             alt="name"
                           />
                           <ReactTooltip
@@ -237,7 +238,7 @@ const FreeChampRotation = (props) => {
                       ) : (
                         <div>
                           <img
-                            src={`https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/${item.name}.png`}
+                            src={`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/champion/${item.name}.png`}
                             alt="name"
                           />
                           <ReactTooltip
