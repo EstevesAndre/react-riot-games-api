@@ -203,7 +203,7 @@ div.fullscreen-group::before {
 }
 
 .champ-img {
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   width: 100%;
   max-width: 200px;
 }
@@ -213,6 +213,10 @@ div.fullscreen-group::before {
   position: relative;
   width: 64px;
   height: 64px;
+}
+
+.spell-img-container img {
+  border-radius: 0.5rem;
 }
 
 .bottom-right-icon {

@@ -34,7 +34,7 @@ const bannerImg = {
 const { Paragraph } = Placeholder
 
 const Home = (props) => {
-  const [cal, setCal] = useState(true)
+  const [cal, setCal] = useState(false)
 
   return (
     <div>
@@ -46,6 +46,7 @@ const Home = (props) => {
             playing={cal}
             loop={true}
             muted={true}
+            onReady={() => setCal(true)}
           />
         </div>
         <div className="center-webm">
@@ -68,13 +69,13 @@ const Home = (props) => {
               lg={8}
               lgOffset={4}
             >
-              <Paragraph
+              {/* <Paragraph
                 style={{ marginTop: 30 }}
                 rows={9}
                 className="placeholder-container"
                 graph="image"
                 active
-              />
+              /> */}
             </Col>
             <Col
               xs={20}
