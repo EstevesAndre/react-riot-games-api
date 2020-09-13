@@ -111,7 +111,15 @@ footer {
   margin-right: 0.5rem;
 }
 
+.language-container {
+  text-align: left;
+}
+
 @media (max-width: 991px) {
+  .language-container {
+    text-align: center;
+  }
+
   .footer-grid .rs-col .col-inner {
     justify-content: center;
     display: block;

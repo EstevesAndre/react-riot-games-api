@@ -164,6 +164,7 @@
   display: flex;
 }
 
+/* 
 .language-container .dropdown-toggle {
   text-transform: uppercase;
 }
@@ -205,7 +206,7 @@
   background-color: transparent;
   outline: none;
   box-shadow: none;
-}
+} */
 
 .navbar-toggler:active,
 .navbar-toggler:focus {
