@@ -207,7 +207,7 @@ const SearchSummonerForm = (props) => {
     >
       <div className="search-container">
         <UncontrolledDropdown inNavbar>
-          <DropdownToggle caret>{region}</DropdownToggle>
+          <DropdownToggle className="custom-button" caret>{region}</DropdownToggle>
           <DropdownMenu color="inherit" right className="menu-dropdown">
             {regions.map((region) => (
               <DropdownItem
@@ -229,7 +229,7 @@ const SearchSummonerForm = (props) => {
             onChange={handleChange}
             onFocus={() => setSummonnerSerachActive(true)}
           />
-          <Button>Goat</Button>
+          <Button className="custom-button">Goat</Button>
         </Form>
       </div>
       <div
