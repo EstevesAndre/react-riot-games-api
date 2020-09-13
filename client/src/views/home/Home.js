@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 
 import ReactPlayer from 'react-player'
-import freljord from '../../assets/webm/freljord_animated_art.webm'
-import demacia from '../../assets/webm/demacia.webm'
-import arcade from '../../assets/webm/arcade.webm'
-import ionia from '../../assets/webm/ionia.webm'
-import har from '../../assets/webm/harrowing-2014-loop.webm'
-
+// import freljord from '../../assets/webm/freljord_animated_art.webm'
+// import demacia from '../../assets/webm/demacia.webm'
+// import arcade from '../../assets/webm/arcade.webm'
+// import ionia from '../../assets/webm/ionia.webm'
+// import har from '../../assets/webm/harrowing-2014-loop.webm'
+// import piltover from '../../assets/webm/piltover.webm'
+import bilgewater from '../../assets/bilgewater.webm'
 // import Cookies from "js-cookie";
 // import cookiesApi from "../../api/cookies";
 // import api from "../../api";
@@ -40,7 +41,12 @@ const Home = (props) => {
       <BaseNavbar {...props} noSearch page={'home'} />
       <div className="one-page-plus-minus-nav-minus-footer bg-1 pb-4">
         <div className="home-webm">
-          <ReactPlayer url={har} playing={cal} loop={true} muted={true} />
+          <ReactPlayer
+            url={bilgewater}
+            playing={cal}
+            loop={true}
+            muted={true}
+          />
         </div>
         <div className="center-webm">
           <h3 className="pb-4">AppName</h3>
