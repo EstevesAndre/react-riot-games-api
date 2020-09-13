@@ -1,41 +1,57 @@
-import React from "react";
+import React, { useState, useEffect } from 'react'
+
+import ReactPlayer from 'react-player'
+import freljord from '../../assets/webm/freljord_animated_art.webm'
+import demacia from '../../assets/webm/demacia.webm'
+import arcade from '../../assets/webm/arcade.webm'
+import ionia from '../../assets/webm/ionia.webm'
+import har from '../../assets/webm/harrowing-2014-loop.webm'
+
 // import Cookies from "js-cookie";
 // import cookiesApi from "../../api/cookies";
 // import api from "../../api";
 // import Loader from "react-loader-spinner";
-import "whatwg-fetch";
+import 'whatwg-fetch'
 
-import { Placeholder, Grid, Row, Col } from "rsuite";
+import { Placeholder, Grid, Row, Col } from 'rsuite'
 
-import BaseNavbar from "../../components/navbar";
-import Footer from "../../components/footer";
-import FreeChampRotation from "../../components/freeChampRotation";
-import SearchSummonerForm from "../../components/searchSummonerForm";
+import BaseNavbar from '../../components/navbar'
+import Footer from '../../components/footer'
+import FreeChampRotation from '../../components/freeChampRotation'
+import SearchSummonerForm from '../../components/searchSummonerForm'
 
-import bannerBackground from "../../assets/home_bg.png";
+import bannerBackground from '../../assets/home_bg.png'
 
-import "./Home.css";
+import './Home.css'
 
 const bannerImg = {
-  padding: "0",
+  padding: '0',
   background: `url(${bannerBackground}) no-repeat center center `,
-  backgroundSize: "cover",
-};
+  backgroundSize: 'cover',
+}
 
-const { Paragraph } = Placeholder;
+const { Paragraph } = Placeholder
 
 const Home = (props) => {
+  const [cal, setCal] = useState(true)
+
   return (
     <div>
-      <BaseNavbar {...props} noSearch />
+      <BaseNavbar {...props} noSearch page={'home'} />
       <div className="one-page-plus-minus-nav-minus-footer bg-1 pb-4">
-        <div className="home-page-banner" style={bannerImg}>
-          <div className="middle">
-            <h2 className="pb-4">AppName</h2>
+        <div className="home-webm">
+          <ReactPlayer url={har} playing={cal} loop={true} muted={true} />
+        </div>
+        <div className="center-webm">
+          <h3 className="pb-4">AppName</h3>
+          <div className="desktop-view">
             <SearchSummonerForm {...props} />
           </div>
         </div>
-        <Grid fluid>
+        <div className="mobile-view pt-4 px-3">
+          <SearchSummonerForm {...props} />
+        </div>
+        <Grid fluid className="py-4">
           <Row>
             <Col
               xs={20}
@@ -71,7 +87,7 @@ const Home = (props) => {
       </div>
       <Footer {...props} />
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
