@@ -71,8 +71,12 @@ const Summoner = (props) => {
     fetch(`/api/riot/summoner/${encodeURI(username)}`)
       .then((response) => response.json())
       .then((text) => {
+        console.log(text);
         if (text.status === 404) {
           console.log("Invalid Summoner");
+          setInvalidSummoner(true);
+        } else if (text.status === 403) {
+          console.log("Unable to retrieve data");
           setInvalidSummoner(true);
         } else {
           setSearchInfo(text);
@@ -107,6 +111,7 @@ const Summoner = (props) => {
     )
       .then((response) => response.json())
       .then((text) => {
+        console.log(text);
         fetchGamesInfo(text);
       })
       .catch((err) => {
