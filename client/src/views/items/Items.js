@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { ddragonVersion } from "../../constants";
-import ReactTooltip from "react-tooltip";
-import axios from "axios";
-import Loader from "react-loader-spinner";
-import { Grid, Row, Col } from "rsuite";
+import React, { useState, useEffect } from 'react'
+import { ddragonVersion } from '../../constants'
+import ReactTooltip from 'react-tooltip'
+import axios from 'axios'
+import Loader from 'react-loader-spinner'
+import { saveItemsList, getItemsList } from '../../api/cookies.js'
+import { Grid, Row, Col } from 'rsuite'
 
-import BaseNavbar from "../../components/navbar";
-import Footer from "../../components/footer";
+import BaseNavbar from '../../components/navbar'
+import Footer from '../../components/footer'
 
-import "./Items.css";
+import './Items.css'
 
 const Items = (props) => {
-  const [loading, setLoading] = useState(true);
-  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true)
+  const [items, setItems] = useState(getItemsList())
 
   useEffect(() => {
     axios
@@ -20,23 +21,27 @@ const Items = (props) => {
         `https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/data/en_US/item.json`
       )
       .then((res) => {
-        let itemsList = [];
+        let itemsList = []
         for (var ch in res.data.data) {
           if (res.data.data.hasOwnProperty(ch)) {
-            itemsList.push({ id: ch, ...res.data.data[ch] });
+            itemsList.push({ id: ch, ...res.data.data[ch] })
           }
         }
-        setItems(itemsList);
-        setLoading(false);
+        itemsList = itemsList.sort((a, b) =>
+          a.gold.total > b.gold.total ? 1 : -1
+        )
+        saveItemsList(itemsList)
+        setItems(itemsList)
+        setLoading(false)
       })
       .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+        console.log(err)
+      })
+  }, [])
 
   useEffect(() => {
     // console.log(items);
-  }, [items]);
+  }, [items])
 
   return (
     <div>
@@ -51,49 +56,43 @@ const Items = (props) => {
           <br />
           <small>TODO filtering</small>
         </h6>
-        {loading ? (
+        {/* {loading ? (
           <div className="loader-container">
             <Loader type="ThreeDots" color="#d13639" height={100} width={100} />
           </div>
-        ) : (
-          <div>
-            <Grid fluid>
-              <Row>
-                <Col
-                  xs={24}
-                  md={18}
-                  mdOffset={3}
-                  lg={14}
-                  lgOffset={5}
-                >
-                  <ul className="items-list py-2 list-unstyled list--inline">
-                    {items
-                      .sort((a, b) => (a.gold.total > b.gold.total ? 1 : -1))
-                      // .filter(
-                      //   (item) =>
-                      //     item.from === undefined &&
-                      //     item.into === undefined &&
-                      //     item.maps["11"] &&
-                      //     !item.hideFromAll &&
-                      //     !item.requiredChampion &&
-                      //     typeof item.requiredAlly === "undefined" &&
-                      //     typeof item.inStore === "undefined" &&
-                      //     (item.gold.base === 0 ||
-                      //       item.gold.base === 450 ||
-                      //       item.gold.base === 400)
-                      // )
-                      .map((item, index) => (
-                        <li key={index}>
-                          <img
-                            data-tip
-                            data-for={`itemDesc${index}tip`}
-                            src={`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/item/${item.image.full}`}
-                            alt="full-item"
-                          />
-                          <br />
-                          <div className="item-display-info">
-                            {item.gold.total}
-                          </div>
+        ) : ( */}
+        <div>
+          <Grid fluid>
+            <Row>
+              <Col xs={24} md={18} mdOffset={3} lg={14} lgOffset={5}>
+                <ul className="items-list py-2 list-unstyled list--inline">
+                  {items
+                    // .filter(
+                    //   (item) =>
+                    //     item.from === undefined &&
+                    //     item.into === undefined &&
+                    //     item.maps["11"] &&
+                    //     !item.hideFromAll &&
+                    //     !item.requiredChampion &&
+                    //     typeof item.requiredAlly === "undefined" &&
+                    //     typeof item.inStore === "undefined" &&
+                    //     (item.gold.base === 0 ||
+                    //       item.gold.base === 450 ||
+                    //       item.gold.base === 400)
+                    // )
+                    .map((item, index) => (
+                      <li key={index}>
+                        <img
+                          data-tip
+                          data-for={`itemDesc${index}tip`}
+                          src={`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/item/${item.image.full}`}
+                          alt="full-item"
+                        />
+                        <br />
+                        <div className="item-display-info">
+                          {loading ? '-' : item.gold.total}
+                        </div>
+                        {!loading && (
                           <ReactTooltip
                             id={`itemDesc${index}tip`}
                             className="item-tooltip"
@@ -115,18 +114,19 @@ const Items = (props) => {
                               </div>
                             )}
                           </ReactTooltip>
-                        </li>
-                      ))}
-                  </ul>
-                </Col>
-              </Row>
-            </Grid>
-          </div>
-        )}
+                        )}
+                      </li>
+                    ))}
+                </ul>
+              </Col>
+            </Row>
+          </Grid>
+        </div>
+        {/* )} */}
       </div>
-      <Footer {...props} page={"items"} />
+      <Footer {...props} page={'items'} />
     </div>
-  );
-};
+  )
+}
 
-export default Items;
+export default Items

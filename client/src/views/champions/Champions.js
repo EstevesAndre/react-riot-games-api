@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
-import ReactTooltip from "react-tooltip";
-import axios from "axios";
-import { ddragonVersion } from "../../constants";
+import React, { useState, useEffect } from 'react'
+import ReactTooltip from 'react-tooltip'
+import axios from 'axios'
+import { ddragonVersion } from '../../constants'
 
-import { Grid, Row, Col } from "rsuite";
-import Loader from "react-loader-spinner";
+import { Grid, Row, Col } from 'rsuite'
+import Loader from 'react-loader-spinner'
 
-import BaseNavbar from "../../components/navbar";
-import FreeChampRotation from "../../components/freeChampRotation";
-import Footer from "../../components/footer";
+import BaseNavbar from '../../components/navbar'
+import FreeChampRotation from '../../components/freeChampRotation'
+import Footer from '../../components/footer'
 
-import "./Champions.css";
+import './Champions.css'
 
 const Champions = (props) => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [champions, setChampions] = useState([]);
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [champions, setChampions] = useState([])
 
   useEffect(() => {
     async function getChampionsInfo() {
@@ -24,15 +24,15 @@ const Champions = (props) => {
           `https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/data/en_US/champion.json`
         )
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
 
       if (res === undefined) {
-        setError("Unable to retrive champion information. Try again later.");
-        return;
+        setError('Unable to retrive champion information. Try again later.')
+        return
       }
 
-      let champs = [];
+      let champs = []
       for (var ch in res.data.data) {
         if (res.data.data.hasOwnProperty(ch)) {
           champs.push({
@@ -40,13 +40,13 @@ const Champions = (props) => {
             name: res.data.data[ch].name,
             key: res.data.data[ch].key,
             title: res.data.data[ch].title,
-            imageFull: res.data.data[ch]["image"].full,
-          });
+            imageFull: res.data.data[ch]['image'].full,
+          })
         }
       }
-      setChampions(champs);
-      localStorage.setItem("champs-basic-info", JSON.stringify(champs));
-      setLoading(false);
+      setChampions(champs)
+      localStorage.setItem('champs-basic-info', JSON.stringify(champs))
+      setLoading(false)
     }
 
     async function checkChampionsCountToUpdateLocalStorage(actualSize) {
@@ -55,28 +55,28 @@ const Champions = (props) => {
           `https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/data/en_US/champion.json`
         )
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
 
       if (res === undefined) {
-        return;
+        return
       }
 
       if (Object.keys(res.data.data).length !== actualSize) {
-        setLoading(true);
-        getChampionsInfo();
+        setLoading(true)
+        getChampionsInfo()
       }
     }
 
-    const cachedHits = localStorage.getItem("champs-basic-info");
+    const cachedHits = localStorage.getItem('champs-basic-info')
     if (cachedHits) {
-      setChampions(JSON.parse(cachedHits));
-      setLoading(false);
-      checkChampionsCountToUpdateLocalStorage(JSON.parse(cachedHits).length);
+      setChampions(JSON.parse(cachedHits))
+      setLoading(false)
+      checkChampionsCountToUpdateLocalStorage(JSON.parse(cachedHits).length)
     } else {
-      getChampionsInfo();
+      getChampionsInfo()
     }
-  }, []);
+  }, [])
 
   return (
     <div>
@@ -109,8 +109,9 @@ const Champions = (props) => {
             <Grid fluid>
               <Row>
                 <Col
-                  xs={22}
-                  xsOffset={1}
+                  xs={24}
+                  sm={22}
+                  smOffset={1}
                   md={18}
                   mdOffset={3}
                   lg={14}
@@ -149,9 +150,9 @@ const Champions = (props) => {
           </div>
         )}
       </div>
-      <Footer {...props} page={"champions"} />
+      <Footer {...props} page={'champions'} />
     </div>
-  );
-};
+  )
+}
 
-export default Champions;
+export default Champions

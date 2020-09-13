@@ -1,148 +1,172 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 
-import cookiesApi from "../../api/cookies";
-import { ddragonVersion } from "../../constants";
+import cookiesApi from '../../api/cookies'
+import { ddragonVersion } from '../../constants'
 
-import { Grid, Row, Col } from "rsuite";
+import { Grid, Row, Col } from 'rsuite'
 
-import Footer from "../../components/footer";
-import BaseNavbar from "../../components/navbar";
+import Footer from '../../components/footer'
+import BaseNavbar from '../../components/navbar'
 
 const Summoner = (props) => {
-  const [firstLoad, setFirstLoad] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
-  const [invalidSummoner, setInvalidSummoner] = useState(false);
+  const [firstLoad, setFirstLoad] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
+  const [invalidSummoner, setInvalidSummoner] = useState(false)
 
-  const [searchInfo, setSearchInfo] = useState(null);
-  const [summonerLeagues, setSummonerLeagues] = useState(null);
-  const [summonerGamesInfo, setSummonerGamesInfo] = useState([]);
+  const [searchInfo, setSearchInfo] = useState(null)
+  const [summonerLeagues, setSummonerLeagues] = useState(null)
+  const [summonerGamesInfo, setSummonerGamesInfo] = useState([])
 
   useEffect(() => {
     if (firstLoad) {
-      // console.log(props);
+      console.log(props)
     } else {
-      setFirstLoad(false);
+      setFirstLoad(false)
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    const username = props.match.params.username;
+    const username = props.match.params.username
 
     if (username === undefined) {
-      setInvalidSummoner(true);
-      return;
+      setInvalidSummoner(true)
+      return
     }
     // "ßandlε Guηnεr"
-    setSummonerGamesInfo([]);
-    setSummonerLeagues(null);
-    setSearchInfo(null);
+    setSummonerGamesInfo([])
+    setSummonerLeagues(null)
+    setSearchInfo(null)
 
-    const cachedHits = localStorage.getItem("summoner-acc");
+    const cachedHits = localStorage.getItem('summoner-acc')
 
     if (cachedHits) {
       if (JSON.parse(cachedHits).name === username) {
-        console.log("HERE1");
-        setStorageInformation(cachedHits);
+        console.log('HERE1')
+        setStorageInformation(cachedHits)
       } else {
-        console.log("HERE3");
-        fetchSummonerInfo(username);
+        removeLS()
+        console.log('HERE3')
+        fetchSummonerInfo(username)
       }
     } else {
-      console.log("HERE2");
-      fetchSummonerInfo(username);
+      removeLS()
+      console.log('HERE2')
+      fetchSummonerInfo(username)
     }
-  }, [props.match.params.username]);
+  }, [props.match.params.username])
 
-  const setStorageInformation = (accountInfo) => {
-    setSearchInfo(JSON.parse(accountInfo));
-    setIsLoading(false);
-
-    const leagueStorage = localStorage.getItem("summoner-league");
-    if (leagueStorage) setSummonerLeagues(JSON.parse(leagueStorage));
+  const removeLS = () => {
+    localStorage.removeItem('summoner-league')
 
     for (let i = 1; i <= 10; i++) {
-      let gameStorage = localStorage.getItem(`summoner-game-${i}`);
-      if (gameStorage)
-        setSummonerGamesInfo((old) => [...old, JSON.parse(gameStorage)]);
+      localStorage.removeItem(`summoner-game-${i}`)
     }
-  };
+  }
+
+  const setStorageInformation = (accountInfo) => {
+    setSearchInfo(JSON.parse(accountInfo))
+    setIsLoading(false)
+
+    const leagueStorage = localStorage.getItem('summoner-league')
+    if (leagueStorage) setSummonerLeagues(JSON.parse(leagueStorage))
+    else {
+      fetchSummonerLeague(JSON.parse(accountInfo).id)
+    }
+
+    for (let i = 1; i <= 10; i++) {
+      let gameStorage = localStorage.getItem(`summoner-game-${i}`)
+      if (gameStorage)
+        setSummonerGamesInfo((old) => [...old, JSON.parse(gameStorage)])
+    }
+  }
 
   const fetchSummonerInfo = (username) => {
-    fetch(`/api/riot/summoner/${encodeURI(username)}`)
-      .then((response) => response.json())
-      .then((text) => {
-        console.log(text);
-        if (text.status === 404) {
-          console.log("Invalid Summoner");
-          setInvalidSummoner(true);
-        } else if (text.status === 403) {
-          console.log("Unable to retrieve data");
-          setInvalidSummoner(true);
-        } else {
-          setSearchInfo(text);
-          cookiesApi.addSummonerSearch(text.name);
-          localStorage.setItem("summoner-acc", JSON.stringify(text));
-          setIsLoading(false);
-          fetchSummonerLeague(text.id);
-          fetchSummonerGames(text.accountId, 0, 10);
-        }
-      })
-      .catch((err) => {
-        setInvalidSummoner(true);
-        console.log(err);
-      });
-  };
-
-  const fetchSummonerLeague = (id) => {
-    fetch(`/api/riot/summoner/league/${id}`)
-      .then((response) => response.json())
-      .then((text) => {
-        setSummonerLeagues(text);
-        localStorage.setItem("summoner-league", JSON.stringify(text));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const fetchSummonerGames = (accountId, beginIndex, endIndex) => {
     fetch(
-      `/api/riot/summoner/matches/${accountId}?beginIndex=${beginIndex}&endIndex=${endIndex}`
+      `/api/riot/summoner/${encodeURI(username)}?region=${
+        props.match.params.region
+      }`
     )
       .then((response) => response.json())
       .then((text) => {
-        console.log(text);
-        fetchGamesInfo(text);
+        console.log(text)
+        if (text.status === 404) {
+          console.log('Invalid Summoner')
+          setInvalidSummoner(true)
+        } else if (text.status === 403) {
+          console.log('Unable to retrieve data')
+          setInvalidSummoner(true)
+        } else {
+          setSearchInfo(text)
+          cookiesApi.addSummonerSearch(text.name)
+          localStorage.setItem('summoner-acc', JSON.stringify(text))
+          setIsLoading(false)
+          fetchSummonerLeague(text.id)
+          fetchSummonerGames(text.accountId, 0, 10)
+        }
       })
       .catch((err) => {
-        console.log(err);
-      });
-  };
+        setInvalidSummoner(true)
+        console.log(err)
+      })
+  }
+
+  const fetchSummonerLeague = (id) => {
+    fetch(`/api/riot/summoner/league/${id}?region=${props.match.params.region}`)
+      .then((response) => response.json())
+      .then((text) => {
+        console.log(text)
+        if (text.status === 404 || text.status === 400) {
+        } else {
+          setSummonerLeagues(text)
+          localStorage.setItem('summoner-league', JSON.stringify(text))
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const fetchSummonerGames = (accountId, beginIndex, endIndex) => {
+    fetch(
+      `/api/riot/summoner/matches/${accountId}?beginIndex=${beginIndex}&endIndex=${endIndex}&region=${props.match.params.region}`
+    )
+      .then((response) => response.json())
+      .then((text) => {
+        console.log(text)
+        if (text.status === 404) {
+        } else fetchGamesInfo(text)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   const fetchGamesInfo = async (object) => {
-    let index = 0;
+    let index = 0
 
     await Promise.all(
       object.matches.map(async (game) => {
-        let res = await fetch(`/api/riot/summoner/match/${game.gameId}`);
-        let data = await res.json();
-        index++;
-        localStorage.setItem(`summoner-game-${index}`, JSON.stringify(data));
-        setSummonerGamesInfo((old) => [...old, data]);
+        let res = await fetch(
+          `/api/riot/summoner/match/${game.gameId}?region=${props.match.params.region}`
+        )
+        let data = await res.json()
+        index++
+        localStorage.setItem(`summoner-game-${index}`, JSON.stringify(data))
+        setSummonerGamesInfo((old) => [...old, data])
       })
-    );
-  };
+    )
+  }
 
   useEffect(() => {
     if (summonerGamesInfo.length === 10) {
       setSummonerGamesInfo(
         summonerGamesInfo.sort((a, b) => {
-          return b.gameCreation < a.gameCreation;
+          return b.gameCreation < a.gameCreation
         })
-      );
-      console.log(summonerGamesInfo);
+      )
+      console.log(summonerGamesInfo)
     }
-  }, [summonerGamesInfo]);
+  }, [summonerGamesInfo])
 
   return (
     <div>
@@ -194,10 +218,10 @@ const Summoner = (props) => {
           ))}
         </div>
       </div>
-      <Footer {...props} page={"summoner"} />
+      <Footer {...props} page={'summoner'} />
     </div>
-  );
-};
+  )
+}
 
 const SummonerRanking = ({ ranking }) => {
   return (
@@ -225,7 +249,7 @@ const SummonerRanking = ({ ranking }) => {
           ))}
       </Row>
     </Grid>
-  );
-};
+  )
+}
 
-export default Summoner;
+export default Summoner
