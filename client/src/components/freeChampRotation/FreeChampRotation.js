@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
-import ReactTooltip from "react-tooltip";
-import { ddragonVersion } from "../../constants";
-import { Grid, Row, Col } from "rsuite";
+import React, { useState, useEffect } from 'react'
+import ReactTooltip from 'react-tooltip'
+import { ddragonVersion } from '../../constants'
+import { Grid, Row, Col } from 'rsuite'
 
-import champions from "../../assets/riot/championIds.json";
+import champions from '../../assets/riot/championIds.json'
 
-import "./FreeChampRotation.css";
+import './FreeChampRotation.css'
 
 const FreeChampRotation = (props) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [rotation, setRotation] = useState([
     1,
     299,
@@ -25,7 +26,7 @@ const FreeChampRotation = (props) => {
     13,
     14,
     15,
-  ]);
+  ])
   const [rotationNewPlayers, setRotationNewPlayers] = useState([
     16,
     17,
@@ -37,38 +38,42 @@ const FreeChampRotation = (props) => {
     23,
     24,
     25,
-  ]);
-  const [maxNewPlayerLevel, setMaxNewPlayerLevel] = useState(10);
+  ])
+  const [maxNewPlayerLevel, setMaxNewPlayerLevel] = useState(10)
 
   const parseFreeChampionRotationInfo = (info) => {
-    let rot = [];
+    let rot = []
     for (let i = 0; i < info.freeChampionIds.length; i++) {
       rot.push({
         id: info.freeChampionIds[i],
         name: champions[info.freeChampionIds[i]],
-      });
+      })
     }
-    setRotation(rot);
-    rot = [];
+    setRotation(rot)
+    rot = []
     for (let i = 0; i < info.freeChampionIdsForNewPlayers.length; i++) {
       rot.push({
         id: info.freeChampionIdsForNewPlayers[i],
         name: champions[info.freeChampionIdsForNewPlayers[i]],
-      });
+      })
     }
-    setRotationNewPlayers(rot);
-    setMaxNewPlayerLevel(info.maxNewPlayerLevel);
-    setLoading(false);
-  };
+    setRotationNewPlayers(rot)
+    setMaxNewPlayerLevel(info.maxNewPlayerLevel)
+    setLoading(false)
+  }
 
   useEffect(() => {
-    fetch("/api/riot/free-champion-rotation")
+    fetch('/api/riot/free-champion-rotation')
       .then((response) => response.json())
       .then((text) => {
-        parseFreeChampionRotationInfo(text);
+        if (text.status === 403) {
+          setError('Unable to retrieve champions information')
+        } else {
+          parseFreeChampionRotationInfo(text)
+        }
       })
-      .catch((err) => console.log(err));
-  }, []);
+      .catch((err) => console.log(err))
+  }, [])
 
   return (
     <div>
@@ -82,12 +87,17 @@ const FreeChampRotation = (props) => {
             </h6>
           </div>
           <div className="free-champs-list home-page">
-            {!loading &&
+            {error !== null ? (
+              <p className="error-api">
+                <small>{error}</small>
+              </p>
+            ) : (
+              !loading &&
               rotation.map((item, index) => (
                 <a
                   key={loading ? index : item.id}
-                  data-value={loading ? "" : item.name}
-                  data-tip={loading ? "future" : item.name}
+                  data-value={loading ? '' : item.name}
+                  data-tip={loading ? 'future' : item.name}
                   data-for={`champion${item.id}tip`}
                   href={`/${props.match.params.lang}/${props.match.params.region}/champion/${item.name}`}
                 >
@@ -109,25 +119,31 @@ const FreeChampRotation = (props) => {
                     </div>
                   )}
                 </a>
-              ))}
+              ))
+            )}
           </div>
           <div className="free-champs-title">
             <h6>
               Free Champion Rotation For New Players
               <br />
               <small>
-                Free champions for players withing level 1 and{" "}
+                Free champions for players withing level 1 and{' '}
                 {maxNewPlayerLevel}
               </small>
             </h6>
           </div>
           <div className="free-champs-list home-page">
-            {!loading &&
+            {error !== null ? (
+              <p className="error-api">
+                <small>{error}</small>
+              </p>
+            ) : (
+              !loading &&
               rotationNewPlayers.map((item, index) => (
                 <a
                   key={loading ? index : item.id}
-                  data-value={loading ? "" : item.name}
-                  data-tip={loading ? "future" : item.name}
+                  data-value={loading ? '' : item.name}
+                  data-tip={loading ? 'future' : item.name}
                   data-for={`champion${item.id}tip`}
                   href={`/${props.match.params.lang}/${props.match.params.region}/champion/${item.name}`}
                 >
@@ -149,7 +165,8 @@ const FreeChampRotation = (props) => {
                     </div>
                   )}
                 </a>
-              ))}
+              ))
+            )}
           </div>
         </div>
       ) : (
@@ -173,12 +190,17 @@ const FreeChampRotation = (props) => {
                 </h6>
               </div>
               <div className="free-champs-list">
-                {!loading &&
+                {error !== null ? (
+                  <p className="error-api text-center w-100">
+                    <small>{error}</small>
+                  </p>
+                ) : (
+                  !loading &&
                   rotation.map((item, index) => (
                     <a
                       key={loading ? index : item.id}
-                      data-value={loading ? "" : item.name}
-                      data-tip={loading ? "future" : item.name}
+                      data-value={loading ? '' : item.name}
+                      data-tip={loading ? 'future' : item.name}
                       data-for={`champion${item.id}tip`}
                       href={`/${props.match.params.lang}/${props.match.params.region}/champion/${item.name}`}
                     >
@@ -200,7 +222,8 @@ const FreeChampRotation = (props) => {
                         </div>
                       )}
                     </a>
-                  ))}
+                  ))
+                )}
               </div>
             </Col>
             <Col
@@ -218,18 +241,23 @@ const FreeChampRotation = (props) => {
                   Free Champion Rotation For New Players
                   <br />
                   <small>
-                    Free champions for players withing level 1 and{" "}
+                    Free champions for players withing level 1 and{' '}
                     {maxNewPlayerLevel}
                   </small>
                 </h6>
               </div>
               <div className="free-champs-list">
-                {!loading &&
+                {error !== null ? (
+                  <p className="error-api text-center w-100">
+                    <small>{error}</small>
+                  </p>
+                ) : (
+                  !loading &&
                   rotationNewPlayers.map((item, index) => (
                     <a
                       key={loading ? index : item.id}
-                      data-value={loading ? "" : item.name}
-                      data-tip={loading ? "future" : item.name}
+                      data-value={loading ? '' : item.name}
+                      data-tip={loading ? 'future' : item.name}
                       data-for={`champion${item.id}tip`}
                       href={`/${props.match.params.lang}/${props.match.params.region}/champion/${item.name}`}
                     >
@@ -251,14 +279,15 @@ const FreeChampRotation = (props) => {
                         </div>
                       )}
                     </a>
-                  ))}
+                  ))
+                )}
               </div>
             </Col>
           </Row>
         </Grid>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default FreeChampRotation;
+export default FreeChampRotation
