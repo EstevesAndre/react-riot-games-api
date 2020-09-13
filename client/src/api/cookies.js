@@ -99,9 +99,8 @@ const getRecentSearches = () => {
 
   let ret = [];
 
-  if (recent !== undefined) {
+  if (recent !== undefined && recent !== "") {
     const splited = recent.split("%24");
-
     for (let i = 0; i < splited.length; i++) {
       ret.push({
         summoner: decodeURI(splited[i]),
