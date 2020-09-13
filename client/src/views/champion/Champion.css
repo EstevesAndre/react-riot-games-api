@@ -25,7 +25,7 @@
   max-width: 175px;
 }
 
-@media (max-width: 567px) {
+@media (max-width: 575px) {
   .champion-page .header {
     padding: 45% 0px !important;
   }
@@ -36,8 +36,13 @@
   }
 
   .champion-page .info-stats {
-    justify-content: space-around;
+    justify-content: center;
     max-width: none;
+  }
+
+  .champion-page .info-stats > * {
+    margin-left: 8px;
+    margin-right: 8px;
   }
 }
 
@@ -205,15 +210,9 @@ div.fullscreen-group::before {
 
 .spell-img-container {
   border-radius: 0.25rem;
-}
-
-.spell-img-container {
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
   width: 64px;
   height: 64px;
-  color: white;
 }
 
 .bottom-right-icon {
@@ -224,30 +223,6 @@ div.fullscreen-group::before {
   text-align: center;
   background-color: rgb(0, 0, 0, 0.5);
   border-bottom-right-radius: 0.25rem;
-}
-
-.card-text font {
-  color: black;
-  font-weight: bold;
-}
-
-.habilities-pannel .card-spells {
-  background-color: rgba(36, 38, 66, 0.287);
-  /* background-color: #0e0e0e3b; */
-}
-
-.card-spells {
-  height: 100%;
-}
-
-.card-subtitle {
-  font-size: 0.8rem;
-  color: rgba(214, 214, 214, 0.7);
-}
-
-spellpassive {
-  color: rgb(116, 116, 116);
-  font-weight: bold;
 }
 
 .stats-container {
@@ -356,4 +331,105 @@ spellpassive {
   justify-content: center;
   align-items: center;
   height: calc(50vh);
+}
+
+.spell-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: center;
+}
+
+.spell-col {
+  align-self: center;
+}
+
+.spell-col h4 {
+  text-align: left;
+}
+
+.spell-container {
+  text-align: left;
+}
+
+.spell-container .spell-tooltip .spell-name {
+  font-size: 1.2rem;
+  color: rgb(255, 217, 0);
+  margin-top: 0.5rem;
+}
+
+.spell-container .spell-tooltip .spell-costs {
+  color: rgba(214, 214, 214, 0.7);
+}
+
+.spell-container .spell-tooltip .spell-description {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.spell-container .spell-tooltip scalead {
+  color: rgb(178, 238, 129);
+}
+.spell-container .spell-tooltip spellactive {
+  color: rgb(255, 217, 0);
+}
+.spell-container .spell-tooltip status {
+  color: rgb(255, 228, 72);
+}
+.spell-container .spell-tooltip span {
+  color: rgb(0, 255, 221);
+}
+.spell-container .spell-tooltip magicdamage {
+  color: rgb(198, 101, 255);
+}
+.spell-container .spell-tooltip scaleap {
+  color: rgb(179, 46, 255);
+}
+.spell-container .spell-tooltip speed {
+  color: rgb(154, 237, 240);
+}
+.spell-container .spell-tooltip spellpassive {
+  color: rgb(164, 205, 243);
+}
+.spell-container .spell-tooltip keywordmajor {
+  color: rgb(179, 255, 0);
+}
+
+@media (min-width: 576px) {
+  .spell-container > * {
+    margin: 0.2rem 1rem;
+  }
+
+  .spell-col h4 {
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .spell-container {
+    margin-top: 1.5rem;
+
+    justify-content: center;
+  }
+
+  .spell-col {
+    align-self: flex-end;
+  }
+
+  .spell-col h4 {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .spell-container > * {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+@media (max-width: 409px) {
+  .spell-container > * {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
 }

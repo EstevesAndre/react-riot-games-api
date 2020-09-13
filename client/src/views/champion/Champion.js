@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import ReactTooltip from "react-tooltip";
+import ReactTooltip from "react-tooltip";
 import axios from "axios";
 import { ddragonVersion } from "../../constants";
 import {
@@ -93,6 +93,25 @@ const InvalidChampion = (props) => {
 
 const ChampionInformation = (props) => {
   const champion = props.champion;
+
+  const SpellFilter = (spell, msg) => {
+    const x = msg.match(/{{\se.\s}}/gm);
+    if (x === null) return msg.replace(/{{.*?}}/gm, "?");
+
+    for (var i = 0; i < x.length; i++) {
+      const matchI = msg.match(/{{\se.\s}}/m);
+      const effectIndex = matchI[0].replace("{{ e", "").replace(" }}", "");
+
+      // console.log(effectIndex);
+      // console.log(spell["effectBurn"][effectIndex]);
+      // console.log(matchI);
+
+      msg = msg.replace(matchI[0], spell["effectBurn"][effectIndex]);
+    }
+
+    return msg.replace(/{{.*?}}/gm, "?");
+  };
+
   return (
     <div className="champion-page">
       <div
@@ -108,14 +127,14 @@ const ChampionInformation = (props) => {
       />
       <div className="mt-4">
         <Row className="w-100">
-          <Col className="col-12 col-sm-3 offset-sm-1 col-lg-2 img-container">
+          <Col className="col-12 col-sm-3 offset-sm-1 col-md-2 img-container">
             <img
               className="mx-2 champ-img"
               src={`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/champion/${champion["image"].full}`}
               alt="champion"
             />
           </Col>
-          <Col className="col-12 col-sm-6 main-stats">
+          <Col className="col-12 col-sm-6 col-md-3 col-xl-2 main-stats">
             <h3>{champion.name}</h3>
             <p>{champion.title}</p>
             <div>
@@ -150,6 +169,88 @@ const ChampionInformation = (props) => {
                 value={champion["info"].difficulty}
                 color="clr-dif"
               />
+            </div>
+          </Col>
+          <Col className="col-12 col-sm-10 offset-sm-1 col-md-6 offset-md-0 spell-col">
+            <h4>Habilities</h4>
+            <div className="spell-container">
+              <div>
+                <div className="spell-img-container">
+                  <img
+                    data-tip
+                    data-for={`passivetip`}
+                    src={`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/passive/${champion["passive"]["image"].full}`}
+                    alt="passive"
+                  />
+                  <span className="bottom-right-icon">P</span>
+                  <ReactTooltip
+                    id={`passivetip`}
+                    className="spell-tooltip"
+                    place="bottom"
+                    effect="solid"
+                  >
+                    <div className="spell-name">{champion["passive"].name}</div>
+                    <div
+                      className="spell-description"
+                      dangerouslySetInnerHTML={{
+                        __html: champion["passive"].description,
+                      }}
+                    ></div>
+                    <small>
+                      Note: "?" indicates data not provided by Riot API. Check
+                      values in League of Legends Client.
+                    </small>
+                  </ReactTooltip>
+                </div>
+              </div>
+
+              {champion["spells"].map((spell, index) => (
+                <div key={index}>
+                  <div className="spell-img-container">
+                    <img
+                      data-tip
+                      data-for={`spell${spell.id}tip`}
+                      src={`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/spell/${spell.id}.png`}
+                      alt={spell.id}
+                    />
+                    <span className="bottom-right-icon">
+                      {index === 0
+                        ? "Q"
+                        : index === 1
+                        ? "W"
+                        : index === 2
+                        ? "E"
+                        : "R"}
+                    </span>
+                    <ReactTooltip
+                      id={`spell${spell.id}tip`}
+                      className="spell-tooltip"
+                      place="bottom"
+                      effect="solid"
+                    >
+                      <div className="spell-name">{spell.name}</div>
+                      <div className="spell-costs">
+                        Cooldown(s): {spell.cooldownBurn}
+                        <br />
+                        Cost:{" "}
+                        {spell.costBurn === "0" ? "No Cost" : spell.costBurn}
+                        <br />
+                        Range: {spell.rangeBurn}
+                      </div>
+                      <div
+                        className="spell-description"
+                        dangerouslySetInnerHTML={{
+                          __html: SpellFilter(spell, spell.tooltip),
+                        }}
+                      ></div>
+                      <small>
+                        Note: "?" indicates data not provided by Riot API. Check
+                        values in League of Legends Client.
+                      </small>
+                    </ReactTooltip>
+                  </div>
+                </div>
+              ))}
             </div>
           </Col>
         </Row>
@@ -218,16 +319,28 @@ const StatComponent = (props) => {
   return (
     <div className="stat-container">
       <Row>
-        <Col className="col-4 col-md-3 offset-1 offset-md-3 text-left">
+        <Col className="col-4 offset-1 col-md-4 offset-md-1 col-lg-2 offset-lg-2 col-xl-3 offset-xl-3 text-left">
           {name}
         </Col>
-        <Col className={"col-2 col-md-1 " + (isHeader ? "text-bold" : "")}>
+        <Col
+          className={
+            "col-2 col-md-2 col-lg-2 col-xl-1 " + (isHeader ? "text-bold" : "")
+          }
+        >
           {baseValue}
         </Col>
-        <Col className={"col-2 col-md-1 " + (isHeader ? "text-bold" : "")}>
+        <Col
+          className={
+            "col-2 col-md-2 col-lg-2 col-xl-1 " + (isHeader ? "text-bold" : "")
+          }
+        >
           {perLevelValue}
         </Col>
-        <Col className={"col-2 col-md-1 " + (isHeader ? "text-bold" : "")}>
+        <Col
+          className={
+            "col-2 col-md-2 col-lg-2 col-xl-1 " + (isHeader ? "text-bold" : "")
+          }
+        >
           {isHeader ? "Calculation" : result}
         </Col>
       </Row>
@@ -265,24 +378,6 @@ const OverviewTab = (props) => {
 const HabilitiesStatsTab = (props) => {
   const { champion } = props;
   const [lvl, setLvl] = useState(1);
-
-  const SpellFilter = (spell, msg) => {
-    const x = msg.match(/{{\se.\s}}/gm);
-    if (x === null) return msg.replace(/{{.*?}}/gm, "?");
-
-    for (var i = 0; i < x.length; i++) {
-      const matchI = msg.match(/{{\se.\s}}/m);
-      const effectIndex = matchI[0].replace("{{ e", "").replace(" }}", "");
-
-      // console.log(effectIndex);
-      // console.log(spell["effectBurn"][effectIndex]);
-      // console.log(matchI);
-
-      msg = msg.replace(matchI[0], spell["effectBurn"][effectIndex]);
-    }
-
-    return msg.replace(/{{.*?}}/gm, "?");
-  };
 
   return (
     <div className="panel-def-size habilities-pannel">
@@ -403,89 +498,6 @@ const HabilitiesStatsTab = (props) => {
         {/* {champion["stats"]["movespeed"]}
         <br />
         {champion["stats"]["attackrange"]} */}
-      </div>
-      <Row>
-        <Col className="my-2 col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xl-4 offset-xl-4">
-          <Card className="card-spells">
-            <div className="spell-img-container mt-4">
-              <CardImg
-                src={`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/passive/${champion["passive"]["image"].full}`}
-                alt="passive"
-              />
-              <span className="bottom-right-icon">P</span>
-            </div>
-            <CardBody className="text-left">
-              <CardTitle>
-                <b>{champion["passive"].name}</b>
-              </CardTitle>
-              <CardText
-                dangerouslySetInnerHTML={{
-                  __html: champion["passive"].description,
-                }}
-              ></CardText>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-      <Row>
-        {champion["spells"].map((spell, index) => (
-          <Col
-            key={index}
-            className={
-              "my-2 col-12 col-sm-6 col-lg-5 col-xl-3 " +
-              (index % 2 ? "" : "offset-lg-1 offset-xl-3")
-            }
-          >
-            <Card className="card-spells">
-              <CardBody className="text-left">
-                <Row>
-                  <Col className="col-4 col-sm-3">
-                    <div className="spell-img-container">
-                      <CardImg
-                        src={`https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/spell/${spell.id}.png`}
-                        alt={spell.id}
-                      />
-                      <div className="bottom-right-icon">
-                        {index === 0
-                          ? "Q"
-                          : index === 1
-                          ? "W"
-                          : index === 2
-                          ? "E"
-                          : "R"}
-                      </div>
-                    </div>
-                  </Col>
-                  <Col className="col-8 col-sm-9">
-                    <CardTitle>
-                      <b>{spell.name}</b>
-                    </CardTitle>
-                    <CardSubtitle>
-                      Cooldown(s): {spell.cooldownBurn}
-                      <br />
-                      Cost:{" "}
-                      {spell.costBurn === "0" ? "No Cost" : spell.costBurn}
-                      <br />
-                      Range: {spell.rangeBurn}
-                    </CardSubtitle>
-                  </Col>
-                </Row>
-                <br />
-                <CardText
-                  dangerouslySetInnerHTML={{
-                    __html: SpellFilter(spell, spell.tooltip),
-                  }}
-                ></CardText>
-              </CardBody>
-            </Card>
-          </Col>
-        ))}
-      </Row>
-      <div className="pb-5">
-        <small>
-          Note: "?" indicates data not provided by Riot API. Check values in
-          League of Legends Client.
-        </small>
       </div>
     </div>
   );
