@@ -24,16 +24,30 @@ ul.items-list .item-display-info {
   /* white-space: nowrap; */
 }
 
-ul.items-list .item-tooltip {
+ul.items-list .item-tooltip,
+.spell-container .spell-tooltip {
   text-transform: capitalize;
   background-color: #303d4e;
   max-width: 400px;
   opacity: 0.9;
 }
 
+.spell-container .spell-tooltip {
+  width: 400px;
+}
+
 @media (max-width: 400px) {
-  ul.items-list .item-tooltip {
+  ul.items-list .item-tooltip,
+  .spell-container .spell-tooltip {
     max-width: 350px;
+    left: 0px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  ul.items-list .item-tooltip,
+  .spell-container .spell-tooltip {
+    left: 12px !important;
   }
 }
 
@@ -82,5 +96,4 @@ ul.items-list .item-tooltip grouplimit {
 }
 ul.items-list .item-tooltip spellpassive {
   color: rgb(198, 101, 255);
-  font-weight: normal;
 }
