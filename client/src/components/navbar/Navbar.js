@@ -1,21 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react'
 
-import { NavbarBrand, Navbar, NavItem, NavLink, Nav } from "reactstrap";
-import { Drawer, Icon, IconButton } from "rsuite";
+import { NavbarBrand, Navbar, NavItem, NavLink, Nav } from 'reactstrap'
+import { Drawer, Icon, IconButton } from 'rsuite'
 
-import SearchSummonerForm from "../searchSummonerForm";
+import SearchSummonerForm from '../searchSummonerForm'
 
-import Logo from "../../assets/league_logo.svg";
-import "./Navbar.css";
+import Logo from '../../assets/league_logo.svg'
+import './Navbar.css'
 
 const BaseNavbar = (props) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const language = props.match.params.lang || "en";
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const language = props.match.params.lang || 'en'
+  const [hover, setHover] = useState(false)
 
   return (
     <>
       <header>
-        <Navbar dark className="app-navbar app-navbar-color" expand="lg">
+        <Navbar
+          dark
+          expand="lg"
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          className={
+            'app-navbar app-navbar-color ' +
+            (props.page === 'home' ? (hover ? '' : 'not-hovered') : '')
+          }
+        >
           <div className="nav-container">
             <NavbarBrand href="/">
               <img src={Logo} alt="logo" />
@@ -24,7 +34,7 @@ const BaseNavbar = (props) => {
               <NavItem className="mobile-content-center">ICON</NavItem>
               <NavItem className="nav-content-link">
                 <NavLink
-                  className={props.page === "champions" ? "active" : ""}
+                  className={props.page === 'champions' ? 'active' : ''}
                   href={`/${language}/${props.match.params.region}/champions`}
                 >
                   Champions
@@ -32,7 +42,7 @@ const BaseNavbar = (props) => {
               </NavItem>
               <NavItem className="nav-content-link">
                 <NavLink
-                  className={props.page === "leaderboard" ? "active" : ""}
+                  className={props.page === 'leaderboard' ? 'active' : ''}
                   href={`/${language}/${props.match.params.region}/leaderboard`}
                 >
                   Leaderboard
@@ -40,7 +50,7 @@ const BaseNavbar = (props) => {
               </NavItem>
               <NavItem className="nav-content-link">
                 <NavLink
-                  className={props.page === "statistics" ? "active" : ""}
+                  className={props.page === 'statistics' ? 'active' : ''}
                   href={`/${language}/${props.match.params.region}/statistics`}
                 >
                   Statistics
@@ -48,7 +58,7 @@ const BaseNavbar = (props) => {
               </NavItem>
               <NavItem className="nav-content-link">
                 <NavLink
-                  className={props.page === "items" ? "active" : ""}
+                  className={props.page === 'items' ? 'active' : ''}
                   href={`/${language}/${props.match.params.region}/items`}
                 >
                   Items
@@ -77,7 +87,7 @@ const BaseNavbar = (props) => {
           onHide={() => setDrawerOpen(false)}
         >
           <Drawer.Header>
-            <Drawer.Title>Drawer Title</Drawer.Title>
+            <Drawer.Title>App Name</Drawer.Title>
           </Drawer.Header>
           <Drawer.Body className="drawer-link-list">
             <a href={`/${language}/${props.match.params.region}`}>Home</a>
@@ -93,12 +103,14 @@ const BaseNavbar = (props) => {
             <a href={`/${language}/${props.match.params.region}/items`}>
               Items
             </a>
-            {!props.noSearch && <SearchSummonerForm {...props} />}
+            {!props.noSearch && (
+              <SearchSummonerForm {...props} isDrawer={true} />
+            )}
           </Drawer.Body>
         </Drawer>
       </header>
     </>
-  );
-};
+  )
+}
 
-export default BaseNavbar;
+export default BaseNavbar
