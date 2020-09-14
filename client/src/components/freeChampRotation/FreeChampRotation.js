@@ -63,10 +63,13 @@ const FreeChampRotation = (props) => {
   }
 
   useEffect(() => {
-    fetch('/api/riot/free-champion-rotation')
+    fetch(
+      `/api/riot/free-champion-rotation?region=${props.match.params.region}`
+    )
       .then((response) => response.json())
       .then((text) => {
-        if (text.status === 403) {
+        if (typeof text.statusCode === undefined) {
+          console.log(text)
           setError('Unable to retrieve champions information')
         } else {
           parseFreeChampionRotationInfo(text)

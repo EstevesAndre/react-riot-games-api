@@ -32,27 +32,29 @@ const Summoner = (props) => {
       setInvalidSummoner(true)
       return
     }
-    // "ßandlε Guηnεr"
-    setSummonerGamesInfo([])
-    setSummonerLeagues(null)
-    setSearchInfo(null)
+    fetchSummonerInfo(username)
 
-    const cachedHits = localStorage.getItem('summoner-acc')
+    // // "ßandlε Guηnεr"
+    // setSummonerGamesInfo([])
+    // setSummonerLeagues(null)
+    // setSearchInfo(null)
 
-    if (cachedHits) {
-      if (JSON.parse(cachedHits).name === username) {
-        console.log('HERE1')
-        setStorageInformation(cachedHits)
-      } else {
-        removeLS()
-        console.log('HERE3')
-        fetchSummonerInfo(username)
-      }
-    } else {
-      removeLS()
-      console.log('HERE2')
-      fetchSummonerInfo(username)
-    }
+    // const cachedHits = localStorage.getItem('summoner-acc')
+
+    // if (cachedHits) {
+    //   if (JSON.parse(cachedHits).name === username) {
+    //     console.log('HERE1')
+    //     setStorageInformation(cachedHits)
+    //   } else {
+    //     removeLS()
+    //     console.log('HERE3')
+    //     fetchSummonerInfo(username)
+    //   }
+    // } else {
+    //   removeLS()
+    //   console.log('HERE2')
+    //   fetchSummonerInfo(username)
+    // }
   }, [props.match.params.username])
 
   const removeLS = () => {
@@ -98,7 +100,7 @@ const Summoner = (props) => {
         } else {
           setSearchInfo(text)
           cookiesApi.addSummonerSearch(text.name)
-          localStorage.setItem('summoner-acc', JSON.stringify(text))
+          // localStorage.setItem('summoner-acc', JSON.stringify(text))
           setIsLoading(false)
           fetchSummonerLeague(text.id)
           fetchSummonerGames(text.accountId, 0, 10)
@@ -118,7 +120,7 @@ const Summoner = (props) => {
         if (text.status === 404 || text.status === 400) {
         } else {
           setSummonerLeagues(text)
-          localStorage.setItem('summoner-league', JSON.stringify(text))
+          // localStorage.setItem('summoner-league', JSON.stringify(text))
         }
       })
       .catch((err) => {
@@ -151,7 +153,7 @@ const Summoner = (props) => {
         )
         let data = await res.json()
         index++
-        localStorage.setItem(`summoner-game-${index}`, JSON.stringify(data))
+        // localStorage.setItem(`summoner-game-${index}`, JSON.stringify(data))
         setSummonerGamesInfo((old) => [...old, data])
       })
     )

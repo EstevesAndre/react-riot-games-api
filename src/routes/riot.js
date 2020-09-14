@@ -9,7 +9,7 @@ dotenv.config()
 const RIOT_API_KEY = process.env.RIOT_API_KEY
 
 const kayn = Kayn(RIOT_API_KEY)({
-  region: REGIONS.NORTH_AMERICA,
+  region: REGIONS.EUROPE_WEST,
   locale: 'en_US',
   debugOptions: {
     isEnabled: true,
@@ -78,49 +78,43 @@ router.get('/summoner/league/:id', function (req, res) {
     .searchSummonerLeague(host, req.params.id)
     .then((response) => res.status(200).send(response))
     .catch((err) => res.send(err))
+
+  // kayn.League.Entries.bySummonerID(req.params.id)
+  //   .region(req.query.region)
+  //   .then((league) => res.send(league))
+  //   .catch((err) => res.send(err))
 })
 
 router.get('/summoner/matches/:accountId', function (req, res) {
-  let host = getHost(req.query.region)
-  matchesSearch
-    .searchSummonerMatches(
-      host,
-      req.params.accountId,
-      req.query.beginIndex,
-      req.query.endIndex
-    )
-    .then((response) => res.status(200).send(response))
+  kayn.Matchlist.by
+    .accountID(req.params.accountId)
+    .query({
+      beginIndex: req.query.beginIndex,
+      endIndex: req.query.endIndex,
+    })
+    .region(req.query.region)
+    .then((matchlist) => res.send(matchlist))
     .catch((err) => res.send(err))
 })
 
 router.get('/summoner/match/:matchID', function (req, res) {
-  let host = getHost(req.query.region)
-  matchInfo
-    .searchSummonerMatch(host, req.params.matchID)
-    .then((response) => res.status(200).send(response))
+  kayn.Match.get(req.params.matchID)
+    .region(req.query.region)
+    .then((match) => res.send(match))
     .catch((err) => res.send(err))
 })
 
 router.get('/summoner/:userID', function (req, res, next) {
-  // let urlComponents = req.headers.host.split(":");
-  // If the user is in the system -- grab their data and populate the application
-  let host = getHost(req.query.region)
-
-  // Send data to react
-  nameSearch
-    .searchSummoner(host, req.params.userID)
-    .then((response) => res.status(200).send(response))
+  kayn.Summoner.by
+    .name(req.params.userID)
+    .region(req.query.region)
+    .then((summoner) => res.send(summoner))
     .catch((err) => res.send(err))
 })
 
 router.get('/free-champion-rotation', function (req, res) {
-  // let host = getHost(req.query.region)
-  // championRotationSearch
-  //   .championRotation(host)
-  //   .then((response) => res.status(200).send(response))
-  //   .catch((err) => res.send(err))
-
   kayn.Champion.Rotation.list()
+    .region(req.query.region)
     .then((rotation) => res.status(200).send(rotation))
     .catch((err) => res.send(err))
 })

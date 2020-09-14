@@ -76,6 +76,9 @@ const Home = (props) => {
                 graph="image"
                 active
               /> */}
+              <div className="py-5">
+                <h1>TODO</h1>
+              </div>
             </Col>
             <Col
               xs={20}
